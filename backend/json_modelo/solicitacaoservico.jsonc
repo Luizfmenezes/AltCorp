@@ -1,0 +1,17 @@
+{
+    "sistema":1,
+    "usuario":"kauik.becker",
+    "senha":"kauik123",
+    "status":2, // 2 = VENDIDO
+    "tipo":3, // 3 = VENDA DIRETA
+    "cliente": false, // false = não cadastrado, ou id do cliente
+    "descricao":"Venda de produto",
+    "margemlucro":0.2, // 20% de margem de lucro
+    "itens":[
+        {
+            "item":101, // id do item
+            "quantidade":1, // quantidade do item
+            "tipo":1 // 1 = venda, 2 = troca, 3 = devolução
+        }
+    ]
+}
