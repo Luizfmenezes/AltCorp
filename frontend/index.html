@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ERP Web App</title>
-    <!-- Link para o arquivo CSS de estilos -->
+    <link rel="stylesheet" href="/frontend/src/css/base.css">
+    <link rel="stylesheet" href="/frontend/src/css/component.css">
+    <link rel="stylesheet" href="/frontend/src/css/layout.css">
+    <link rel="stylesheet" href="/frontend/src/css/page.css">
+    <!-- <link rel="stylesheet" href="css/layout.css"> -->
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
     <link rel="stylesheet" href="style.css">
-    <!-- Importa a fonte Inter do Google Fonts -->
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Link para o Phosphor Icons (para ícones, similar ao Font Awesome) -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
+
 <body>
-    <!-- Container principal da aplicação -->
+
     <div id="app-container" class="app-container">
 
-        <!-- Tela de Login -->
         <div id="login-screen" class="screen active">
             <div class="login-card">
-                <img src="https://placehold.co/150x150/E0E0E0/000000?text=ERP+Logo" alt="ERP Logo" class="erp-logo">
+                <img src="assets/img/erp-logo.png" alt="ERP Logo" class="erp-logo">
                 <h2>Login ERP</h2>
                 <form id="login-form">
                     <div class="input-group">
@@ -36,7 +42,6 @@
             </div>
         </div>
 
-        <!-- Tela de Dashboard -->
         <div id="dashboard-screen" class="screen hidden">
             <header class="dashboard-header">
                 <div class="header-left">
@@ -53,7 +58,6 @@
             </header>
 
             <div class="dashboard-content-area">
-                <!-- Barra Lateral Fixa (para telas maiores) -->
                 <aside id="fixed-sidebar" class="sidebar fixed">
                     <div class="sidebar-header">
                         <div class="user-avatar">
@@ -62,55 +66,56 @@
                     </div>
                     <nav class="sidebar-nav">
                         <ul>
-                            <li><a href="#" data-screen-key="visao_geral" class="active"><i class="ph ph-gauge"></i> Visão Geral</a></li>
-                            <!-- Vendas -->
+                            <li><a href="#" data-screen-key="welcome-dashboard" class="active"><i
+                                        class="ph ph-gauge"></i> Visão Geral</a></li>
                             <li class="has-submenu">
-                                <a href="#" class="submenu-toggle"><i class="ph ph-shopping-cart"></i> Vendas <i class="ph ph-caret-down arrow"></i></a>
+                                <a href="#" class="submenu-toggle"><i class="ph ph-shopping-cart"></i> Vendas <i
+                                        class="ph ph-caret-down arrow"></i></a>
                                 <ul class="submenu">
-                                    <li><a href="#" data-screen-key="vendas_geral">Geral</a></li>
-                                    <li><a href="#" data-screen-key="vendas_venda">Venda</a></li>
-                                    <li><a href="#" data-screen-key="vendas_orcamento">Orçamento</a></li>
-                                    <li><a href="#" data-screen-key="vendas_entrega">Entrega</a></li>
+                                    <li><a href="#" data-screen-key="vendas-geral">Geral</a></li>
+                                    <li><a href="#" data-screen-key="vendas-venda">Venda</a></li>
+                                    <li><a href="#" data-screen-key="vendas-orcamento">Orçamento</a></li>
+                                    <li><a href="#" data-screen-key="vendas-entrega">Entrega</a></li>
                                 </ul>
                             </li>
-                            <!-- Estoque -->
                             <li class="has-submenu">
-                                <a href="#" class="submenu-toggle"><i class="ph ph-storefront"></i> Estoque <i class="ph ph-caret-down arrow"></i></a>
+                                <a href="#" class="submenu-toggle"><i class="ph ph-storefront"></i> Estoque <i
+                                        class="ph ph-caret-down arrow"></i></a>
                                 <ul class="submenu">
-                                    <li><a href="#" data-screen-key="estoque_geral">Geral</a></li>
-                                    <li><a href="#" data-screen-key="estoque_entrada_nf">Entrada NF</a></li>
-                                    <li><a href="#" data-screen-key="estoque_cadastro_itens">Cadastro de Itens</a></li>
+                                    <li><a href="#" data-screen-key="estoque-geral">Geral</a></li>
+                                    <li><a href="#" data-screen-key="estoque-entrada-nf">Entrada NF</a></li>
+                                    <li><a href="#" data-screen-key="estoque-cadastro-itens">Cadastro de Itens</a></li>
                                 </ul>
                             </li>
-                            <!-- Clientes -->
                             <li class="has-submenu">
-                                <a href="#" class="submenu-toggle"><i class="ph ph-users"></i> Clientes <i class="ph ph-caret-down arrow"></i></a>
+                                <a href="#" class="submenu-toggle"><i class="ph ph-users"></i> Clientes <i
+                                        class="ph ph-caret-down arrow"></i></a>
                                 <ul class="submenu">
-                                    <li><a href="#" data-screen-key="clientes_geral">Geral</a></li>
-                                    <li><a href="#" data-screen-key="clientes_cadastro_rapido">Cadastro Rápido</a></li>
+                                    <li><a href="#" data-screen-key="clientes-geral">Geral</a></li>
+                                    <li><a href="#" data-screen-key="clientes-cadastro-rapido">Cadastro Rápido</a></li>
                                 </ul>
                             </li>
-                            <!-- Relatórios -->
                             <li class="has-submenu">
-                                <a href="#" class="submenu-toggle"><i class="ph ph-chart-bar"></i> Relatórios <i class="ph ph-caret-down arrow"></i></a>
+                                <a href="#" class="submenu-toggle"><i class="ph ph-chart-bar"></i> Relatórios <i
+                                        class="ph ph-caret-down arrow"></i></a>
                                 <ul class="submenu">
-                                    <li><a href="#" data-screen-key="relatorios_geral">Geral</a></li>
+                                    <li><a href="#" data-screen-key="relatorios-geral">Geral</a></li>
                                 </ul>
                             </li>
-                            <!-- Configurações -->
                             <li class="has-submenu">
-                                <a href="#" class="submenu-toggle"><i class="ph ph-gear-six"></i> Configurações <i class="ph ph-caret-down arrow"></i></a>
+                                <a href="#" class="submenu-toggle"><i class="ph ph-gear-six"></i> Configurações <i
+                                        class="ph ph-caret-down arrow"></i></a>
                                 <ul class="submenu">
-                                    <li><a href="#" data-screen-key="configuracoes_geral">Geral</a></li>
-                                    <li><a href="#" data-screen-key="configuracoes_usuarios">Usuários</a></li>
-                                    <li id="integration-settings-menu-item" class="hidden"><a href="#" data-screen-key="configuracoes_integracao">Integração</a></li>
+                                    <li><a href="#" data-screen-key="configuracoes-geral">Geral</a></li>
+                                    <li><a href="#" data-screen-key="configuracoes-usuarios">Usuários</a></li>
+                                    <li id="integration-settings-menu-item" class="hidden"><a href="#"
+                                            data-screen-key="configuracoes-integracao">Integração</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </nav>
                 </aside>
 
-                <!-- Drawer (para telas menores) -->
                 <div id="drawer-overlay" class="drawer-overlay hidden"></div>
                 <aside id="mobile-drawer" class="sidebar mobile-drawer hidden">
                     <div class="sidebar-header">
@@ -120,185 +125,67 @@
                     </div>
                     <nav class="sidebar-nav">
                         <ul>
-                            <li><a href="#" data-screen-key="visao_geral" class="active"><i class="ph ph-gauge"></i> Visão Geral</a></li>
-                            <!-- Vendas -->
+                            <li><a href="#" data-screen-key="welcome-dashboard" class="active"><i
+                                        class="ph ph-gauge"></i> Visão Geral</a></li>
                             <li class="has-submenu">
-                                <a href="#" class="submenu-toggle"><i class="ph ph-shopping-cart"></i> Vendas <i class="ph ph-caret-down arrow"></i></a>
+                                <a href="#" class="submenu-toggle"><i class="ph ph-shopping-cart"></i> Vendas <i
+                                        class="ph ph-caret-down arrow"></i></a>
                                 <ul class="submenu">
-                                    <li><a href="#" data-screen-key="vendas_geral">Geral</a></li>
-                                    <li><a href="#" data-screen-key="vendas_venda">Venda</a></li>
-                                    <li><a href="#" data-screen-key="vendas_orcamento">Orçamento</a></li>
-                                    <li><a href="#" data-screen-key="vendas_entrega">Entrega</a></li>
+                                    <li><a href="#" data-screen-key="vendas-geral">Geral</a></li>
+                                    <li><a href="#" data-screen-key="vendas-venda">Venda</a></li>
+                                    <li><a href="#" data-screen-key="vendas-orcamento">Orçamento</a></li>
+                                    <li><a href="#" data-screen-key="vendas-entrega">Entrega</a></li>
                                 </ul>
                             </li>
-                            <!-- Estoque -->
                             <li class="has-submenu">
-                                <a href="#" class="submenu-toggle"><i class="ph ph-storefront"></i> Estoque <i class="ph ph-caret-down arrow"></i></a>
+                                <a href="#" class="submenu-toggle"><i class="ph ph-storefront"></i> Estoque <i
+                                        class="ph ph-caret-down arrow"></i></a>
                                 <ul class="submenu">
-                                    <li><a href="#" data-screen-key="estoque_geral">Geral</a></li>
-                                    <li><a href="#" data-screen-key="estoque_entrada_nf">Entrada NF</a></li>
-                                    <li><a href="#" data-screen-key="estoque_cadastro_itens">Cadastro de Itens</a></li>
+                                    <li><a href="#" data-screen-key="estoque-geral">Geral</a></li>
+                                    <li><a href="#" data-screen-key="estoque-entrada-nf">Entrada NF</a></li>
+                                    <li><a href="#" data-screen-key="estoque-cadastro-itens">Cadastro de Itens</a></li>
                                 </ul>
                             </li>
-                            <!-- Clientes -->
                             <li class="has-submenu">
-                                <a href="#" class="submenu-toggle"><i class="ph ph-users"></i> Clientes <i class="ph ph-caret-down arrow"></i></a>
+                                <a href="#" class="submenu-toggle"><i class="ph ph-users"></i> Clientes <i
+                                        class="ph ph-caret-down arrow"></i></a>
                                 <ul class="submenu">
-                                    <li><a href="#" data-screen-key="clientes_geral">Geral</a></li>
-                                    <li><a href="#" data-screen-key="clientes_cadastro_rapido">Cadastro Rápido</a></li>
+                                    <li><a href="#" data-screen-key="clientes-geral">Geral</a></li>
+                                    <li><a href="#" data-screen-key="clientes-cadastro-rapido">Cadastro Rápido</a></li>
                                 </ul>
                             </li>
-                            <!-- Relatórios -->
                             <li class="has-submenu">
-                                <a href="#" class="submenu-toggle"><i class="ph ph-chart-bar"></i> Relatórios <i class="ph ph-caret-down arrow"></i></a>
+                                <a href="#" class="submenu-toggle"><i class="ph ph-chart-bar"></i> Relatórios <i
+                                        class="ph ph-caret-down arrow"></i></a>
                                 <ul class="submenu">
-                                    <li><a href="#" data-screen-key="relatorios_geral">Geral</a></li>
+                                    <li><a href="#" data-screen-key="relatorios-geral">Geral</a></li>
                                 </ul>
                             </li>
-                            <!-- Configurações -->
                             <li class="has-submenu">
-                                <a href="#" class="submenu-toggle"><i class="ph ph-gear-six"></i> Configurações <i class="ph ph-caret-down arrow"></i></a>
+                                <a href="#" class="submenu-toggle"><i class="ph ph-gear-six"></i> Configurações <i
+                                        class="ph ph-caret-down arrow"></i></a>
                                 <ul class="submenu">
-                                    <li><a href="#" data-screen-key="configuracoes_geral">Geral</a></li>
-                                    <li><a href="#" data-screen-key="configuracoes_usuarios">Usuários</a></li>
-                                    <li id="integration-settings-menu-item-mobile" class="hidden"><a href="#" data-screen-key="configuracoes_integracao">Integração</a></li>
+                                    <li><a href="#" data-screen-key="configuracoes-geral">Geral</a></li>
+                                    <li><a href="#" data-screen-key="configuracoes-usuarios">Usuários</a></li>
+                                    <li id="integration-settings-menu-item-mobile" class="hidden"><a href="#"
+                                            data-screen-key="configuracoes-integracao">Integração</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </nav>
                 </aside>
 
-
-                <!-- Conteúdo Principal do Dashboard -->
                 <main id="main-content" class="main-content">
-                    <!-- As telas serão carregadas aqui dinamicamente pelo JavaScript -->
-                    <div id="welcome-dashboard-content" class="content-screen active">
-                        <!-- Conteúdo da tela de boas-vindas será carregado aqui -->
-                    </div>
-                    <div id="vendas_geral" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-shopping-cart"></i>
-                            <h2>Vendas - Geral</h2>
-                            <p>Conteúdo de Vendas - Geral</p>
-                        </div>
-                    </div>
-                    <div id="vendas_venda" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-shopping-cart"></i>
-                            <h2>Vendas - Venda</h2>
-                            <p>Conteúdo de Vendas - Venda</p>
-                        </div>
-                    </div>
-                    <div id="vendas_orcamento" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-shopping-cart"></i>
-                            <h2>Vendas - Orçamento</h2>
-                            <p>Conteúdo de Vendas - Orçamento</p>
-                        </div>
-                    </div>
-                    <div id="vendas_entrega" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-shopping-cart"></i>
-                            <h2>Vendas - Entrega</h2>
-                            <p>Conteúdo de Vendas - Entrega</p>
-                        </div>
-                    </div>
-                    <div id="estoque_geral" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-storefront"></i>
-                            <h2>Estoque - Geral</h2>
-                            <p>Conteúdo de Estoque - Geral</p>
-                        </div>
-                    </div>
-                    <div id="estoque_entrada_nf" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-storefront"></i>
-                            <h2>Estoque - Entrada NF</h2>
-                            <p>Conteúdo de Estoque - Entrada NF</p>
-                        </div>
-                    </div>
-                    <div id="estoque_cadastro_itens" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-storefront"></i>
-                            <h2>Estoque - Cadastro de Itens</h2>
-                            <p>Conteúdo de Estoque - Cadastro de Itens</p>
-                        </div>
-                    </div>
-                    <div id="clientes_geral" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-users"></i>
-                            <h2>Clientes - Geral</h2>
-                            <p>Conteúdo de Clientes - Geral</p>
-                        </div>
-                    </div>
-                    <div id="clientes_cadastro_rapido" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-users"></i>
-                            <h2>Clientes - Cadastro Rápido</h2>
-                            <p>Conteúdo de Clientes - Cadastro Rápido</p>
-                        </div>
-                    </div>
-                    <div id="relatorios_geral" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-chart-bar"></i>
-                            <h2>Relatórios - Geral</h2>
-                            <p>Conteúdo de Relatórios - Geral</p>
-                        </div>
-                    </div>
-                    <div id="configuracoes_geral" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-gear-six"></i>
-                            <h2>Configurações - Geral</h2>
-                            <p>Conteúdo de Configurações - Geral</p>
-                        </div>
-                    </div>
-                    <div id="configuracoes_usuarios" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-gear-six"></i>
-                            <h2>Configurações - Usuários</h2>
-                            <p>Conteúdo de Configurações - Usuários</p>
-                        </div>
-                    </div>
-                    <!-- Tela de Configurações de Integração (será carregada dinamicamente) -->
-                    <div id="configuracoes_integracao" class="content-screen hidden">
-                        <div class="integration-settings-container">
-                            <h2>Configurações de Integração</h2>
-                            <p class="section-description">Defina as informações de conexão da API:</p>
-                            <form id="integration-settings-form">
-                                <div class="input-group">
-                                    <i class="ph ph-hash"></i>
-                                    <label for="system-id">ID do Sistema</label>
-                                    <input type="number" id="system-id" placeholder="Ex: 1" value="1" required>
-                                </div>
-                                <div class="input-group">
-                                    <i class="ph ph-link"></i>
-                                    <label for="api-endpoint">Endpoint da API</label>
-                                    <input type="text" id="api-endpoint" placeholder="Ex: http://192.168.15.187" value="http://192.168.15.187" required>
-                                </div>
-                                <div class="input-group">
-                                    <i class="ph ph-plug"></i>
-                                    <label for="port">Porta</label>
-                                    <input type="number" id="port" placeholder="Ex: 8000" value="8000" required>
-                                </div>
-                                <div class="input-group">
-                                    <i class="ph ph-buildings"></i>
-                                    <label for="company-name">Nome da Empresa</label>
-                                    <input type="text" id="company-name" placeholder="Ex: AltCorp" value="AltCorp" required>
-                                </div>
-                                <div class="button-group">
-                                    <button type="submit" id="save-settings-button" class="primary-button">Salvar Configurações (Desativado)</button>
-                                    <button type="button" id="reset-settings-button" class="secondary-button">Voltar ao Padrão (Desativado)</button>
-                                </div>
-                            </form>
-                            <div id="integration-message-box" class="message-box hidden"></div>
-                        </div>
-                    </div>
                 </main>
             </div>
         </div>
     </div>
 
-    <!-- Link para o arquivo JavaScript de lógica -->
+    <!-- <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/main.js"></script> </body> -->
     <script src="script.js"></script>
-</body>
+
 </html>

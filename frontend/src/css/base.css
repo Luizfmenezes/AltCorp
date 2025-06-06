@@ -1,0 +1,35 @@
+/* public/css/base.css */
+
+/* Variáveis CSS para cores e tamanhos */
+:root {
+    --primary-color: #240092; /* Cor principal (azul escuro) */
+    --secondary-color: #007bff; /* Azul para botões de login */
+    --accent-color: #0056b3; /* Azul mais escuro para hover */
+    --background-light: #F4F6F8; /* Fundo claro geral */
+    --sidebar-bg: #EEEEEE; /* Cor de fundo da barra lateral */
+    --text-dark: #333; /* Texto escuro padrão */
+    --text-light: #fff; /* Texto claro */
+    --border-color: #ccc; /* Cor da borda */
+    --card-bg: #fff; /* Fundo de cartões */
+    --shadow-light: rgba(0, 0, 0, 0.1); /* Sombra leve */
+    --shadow-medium: rgba(0, 0, 0, 0.2); /* Sombra média */
+}
+
+/* Reset básico e estilos globais */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif; /* Define a fonte Inter */
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--background-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Garante que o body ocupe a altura total da viewport */
+    overflow: hidden; /* Evita scroll desnecessário no body */
+}
