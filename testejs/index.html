@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Item</title>
+    <!-- Carrega o Tailwind CSS via CDN para estilização rápida e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link para o arquivo CSS personalizado -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl border border-gray-200">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Cadastro de Novo Item</h1>
+
+        <form id="itemForm" class="space-y-6">
+            <!-- Seção de Dados do Item -->
+            <div class="border-b border-gray-200 pb-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Dados do Item</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="sistema" class="block text-sm font-medium text-gray-700 mb-1">Sistema</label>
+                        <input type="number" id="sistema" name="sistema" value="1" required
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out">
+                    </div>
+                    <div>
+                        <label for="usuario" class="block text-sm font-medium text-gray-700 mb-1">Usuário</label>
+                        <input type="text" id="usuario" name="usuario" value="kauik.becker" required
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out">
+                    </div>
+                    <div>
+                        <label for="senha" class="block text-sm font-medium text-gray-700 mb-1">Senha</label>
+                        <input type="password" id="senha" name="senha" value="kauik123" required
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out">
+                    </div>
+                    <div>
+                        <label for="itemStatus" class="block text-sm font-medium text-gray-700 mb-1">Status do Item</label>
+                        <select id="itemStatus" name="itemStatus" required
+                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out">
+                            <option value="1">Ativo</option>
+                            <option value="0">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <label for="descricaoItem" class="block text-sm font-medium text-gray-700 mb-1">Descrição do Item</label>
+                    <textarea id="descricaoItem" name="descricaoItem" rows="3" required
+                              class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out">Poco X6 pro rosa lisa</textarea>
+                </div>
+            </div>
+
+            <!-- Seção de Dados do Grupo (sempre cria um novo) -->
+            <div class="border-b border-gray-200 pb-6 pt-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Dados do Novo Grupo</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="grupoInfoStatus" class="block text-sm font-medium text-gray-700 mb-1">Status do Grupo</label>
+                        <select id="grupoInfoStatus" name="grupoInfoStatus" required
+                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out">
+                            <option value="1">Ativo</option>
+                            <option value="0">Inativo</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="grupoInfoExigeAprovacao" class="block text-sm font-medium text-gray-700 mb-1">Exige Aprovação?</label>
+                        <select id="grupoInfoExigeAprovacao" name="grupoInfoExigeAprovacao" required
+                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out">
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <label for="grupoInfoDescricao" class="block text-sm font-medium text-gray-700 mb-1">Descrição do Grupo</label>
+                    <input type="text" id="grupoInfoDescricao" name="grupoInfoDescricao" value="Capinha de celular" required
+                           class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out">
+                </div>
+            </div>
+
+            <!-- Seção de Dados do Subgrupo (sempre cria um novo) -->
+            <div class="border-b border-gray-200 pb-6 pt-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Dados do Novo Subgrupo</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="subgrupoInfoStatus" class="block text-sm font-medium text-gray-700 mb-1">Status do Subgrupo</label>
+                        <select id="subgrupoInfoStatus" name="subgrupoInfoStatus" required
+                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out">
+                            <option value="1">Ativo</option>
+                            <option value="0">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <label for="subgrupoInfoDescricao" class="block text-sm font-medium text-gray-700 mb-1">Descrição do Subgrupo</label>
+                    <input type="text" id="subgrupoInfoDescricao" name="subgrupoInfoDescricao" value="Xiaomi" required
+                           class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out">
+                </div>
+            </div>
+
+            <!-- Seção de Validade e Garantia -->
+            <div class="pb-6 pt-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Validade e Garantia</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="tipoValidade" class="block text-sm font-medium text-gray-700 mb-1">Tipo de Validade</label>
+                        <select id="tipoValidade" name="tipoValidade" required
+                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out">
+                            <option value="0">Sem Validade</option>
+                            <option value="1">Dias</option>
+                            <option value="2">Meses</option>
+                            <option value="3">Anos</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="validade" class="block text-sm font-medium text-gray-700 mb-1">Validade (número)</label>
+                        <input type="text" id="validade" name="validade" placeholder="Vazio se sem validade"
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out">
+                    </div>
+                    <div>
+                        <label for="temGarantia" class="block text-sm font-medium text-gray-700 mb-1">Tem Garantia?</label>
+                        <select id="temGarantia" name="temGarantia" required
+                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out">
+                            <option value="0">Não</option>
+                            <option value="1">Dias</option>
+                            <option value="2">Meses</option>
+                            <option value="3">Anos</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="garantia" class="block text-sm font-medium text-gray-700 mb-1">Garantia (número)</label>
+                        <input type="text" id="garantia" name="garantia" value="7" placeholder="Vazio se sem garantia"
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão de Envio -->
+            <button type="submit" id="submitButton"
+                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                Cadastrar Item
+            </button>
+            <div id="loadingIndicator" class="hidden text-center text-blue-600 font-semibold">
+                Enviando... Por favor, aguarde.
+            </div>
+
+            <!-- Área de Resultado da API -->
+            <div id="apiResponse" class="mt-8 p-4 rounded-md text-center hidden">
+                <p id="responseMessage" class="text-lg font-medium"></p>
+                <p id="responseId" class="text-md text-gray-600"></p>
+            </div>
+        </form>
+    </div>
+
+    <!-- Link para o arquivo JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
