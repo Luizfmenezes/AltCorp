@@ -190,8 +190,10 @@ class DashboardController {
         this.dashboardView.toggleMobileDrawer();
     }
 
-    handleSidebarNavigation(event) {
-        event.preventDefault();
+     handleSidebarNavigation(event) {
+        // REMOVA OU COMENTE A LINHA ABAIXO:
+        // event.preventDefault(); // Esta linha causa o erro quando 'event' não é um evento DOM real
+
         const screenKey = event.currentTarget.dataset.screenKey;
         const activatedContentId = this.dashboardView.showContentScreen(screenKey);
         this.dashboardView.updateSidebarSelection(screenKey);
