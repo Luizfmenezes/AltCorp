@@ -44,6 +44,11 @@ async def consulta_usuario(request: Request):
     tem_garantia = data.get("temgarantia")
     garantia = data.get("garantia")
 
+    if tipo_validade is None or tipo_validade == 0:
+        validade = 0
+    if tem_garantia is None or tem_garantia == 0:
+        garantia = 0
+
 
     if not sistema or not usuario or not senha or not status or not descricao:
         raise HTTPException(status_code=400, detail="Campos 'sistema', 'usuario', 'senha', 'status' e 'descricao' são obrigatórios")

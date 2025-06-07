@@ -1,0 +1,55 @@
+{
+    "sistema":1, // int obrigatório
+    "usuario":"kauik.becker", // string obrigatório
+    "senha":"kauik123", // string obrigatório
+    "status":1, // int obrigatório
+    "nf":55555, // int obrigatório
+    "valorbruto":45.863, // float obrigatório
+    "datacompra":"2023-10-01T00:00:00", // string obrigatório
+    "obs":"Teste", // string opcional
+    "itens":[ // array de objetos obrigatório
+        {
+            "item":6, // int obrigatório
+            "status":1, // int obrigatório
+            "qtd":1, // int obrigatório
+            "tipofaturamento":2, // int obrigatório
+            "valorfaturamento":45.86, // float obrigatório
+            "obs":"Teste01" // string opcional
+        },
+        {
+            "item":6,
+            "status":1,
+            "qtd":1,
+            "tipofaturamento":2,
+            "valorfaturamento":45.86,
+            "obs":"Teste02"
+        },
+        {
+            "item":6,
+            "status":1,
+            "qtd":10,
+            "tipofaturamento":2,
+            "valorfaturamento":45.86,
+            "obs":"Teste03"
+        },
+        {
+            "item":6,
+            "status":1,
+            "qtd":1,
+            "tipofaturamento":2,
+            "valorfaturamento":45.86,
+            "obs":"Teste04"
+        },
+        {
+           "item":6,
+            "status":1,
+            "qtd":1,
+            "tipofaturamento":2,
+            "valorfaturamento":45.86,
+            "obs":"Teste05"
+        }
+    ]
+}
+
+
+

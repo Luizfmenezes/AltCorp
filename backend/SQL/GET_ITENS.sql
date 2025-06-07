@@ -1,0 +1,21 @@
+USE ERP_HOMOLOG;
+
+DECLARE @NOME NVARCHAR(255) = 'SAMSUNG'
+DECLARE @ID INT = 123
+DECLARE @GRUPO NVARCHAR(50) = 'example_group'
+DECLARE @SUBGRUPO NVARCHAR(50) = 'example_subgroup'
+DECLARE @STATUS INT = 1
+
+SELECT
+    *
+    FROM [GET_ITENS]
+    WHERE 1 = 1
+        AND [NOME] LIKE '%' + @NOME + '%'
+        AND [ID] = @ID
+        AND [GRUPO] LIKE '%' + @GRUPO + '%'
+        AND [SUBGRUPO] LIKE '%' + @SUBGRUPO + '%'
+        AND [STATUS] = @STATUS
+    
+    ORDER BY [NOME] ASC
+    OFFSET 25 ROWS
+    FETCH NEXT 25 ROWS ONLY;

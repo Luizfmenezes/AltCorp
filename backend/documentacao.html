@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Documentação da API</title>
       <!-- Tailwind CSS CDN -->
-      <script src="https://cdn.tailwindcss.com"></script>
+      <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
       <style>
           /* Fonte Inter para o corpo */
           body {
@@ -72,6 +72,7 @@
                   <li><a href="#inserir-grupoitem" class="nav-link">Inserir Grupo de Item</a></li>
                   <li><a href="#inserir-subgrupoitem" class="nav-link">Inserir Subgrupo de Item</a></li>
                   <li><a href="#inserir-item" class="nav-link">Inserir Item</a></li>
+                  <li><a href="#alterar-item" class="nav-link">Alterar Item</a></li>
                   <li><a href="#listar-estoque" class="nav-link">Listar Estoque</a></li>
                   <li><a href="#listar-itens" class="nav-link">Listar Itens</a></li>
               </ul>
@@ -80,7 +81,7 @@
           <section id="visao-geral" class="mb-10 p-6 bg-blue-50 rounded-lg shadow-inner">
               <h2 class="text-2xl font-semibold text-blue-800 mb-4">Visão Geral da API</h2>
               <p class="text-gray-700 leading-relaxed">
-                  Esta API fornece endpoints para gerenciar autenticação, inserção de dados (notas fiscais, ordens de serviço, itens, grupos e subgrupos de itens) e listagem de dados (estoque e itens). Todas as requisições devem ser feitas com o método especificado e o corpo da requisição deve ser um JSON válido.
+                  Esta API fornece endpoints para gerenciar autenticação, inserção de dados (notas fiscais, ordens de serviço, itens, grupos e subgrupos de itens), alteração de dados e listagem de dados (estoque e itens). Todas as requisições devem ser feitas com o método especificado e o corpo da requisição deve ser um JSON válido.
               </p>
               <p class="text-gray-700 leading-relaxed mt-2">
                   A URL base para todos os endpoints é <code class="bg-gray-200 p-1 rounded">http://localhost:8000</code>. Lembre-se de substituir pela URL real do seu servidor de API.
@@ -111,7 +112,7 @@
                       <tbody>
                           <tr>
                               <td><code>sistema</code></td>
-                              <td><code>string</code></td>
+                              <td><code>integer</code></td>
                               <td>Sim</td>
                               <td>Identificador do sistema.</td>
                           </tr>
@@ -137,8 +138,8 @@ async function autenticarUsuario() {
     const url = 'http://localhost:8000/autenticar';
     const data = {
         "sistema": 1,
-        "usuario": "kauik.becker",
-        "senha": "kauik123"
+        "usuario": "exemplo.usuario",
+        "senha": "senha123"
     };
 
     try {
@@ -222,27 +223,21 @@ async function autenticarUsuario() {
                           </tr>
                       </thead>
                       <tbody>
-                          <tr><td><code>sistema</code></td><td><code>string</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
+                          <tr><td><code>sistema</code></td><td><code>integer</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
                           <tr><td><code>usuario</code></td><td><code>string</code></td><td>Sim</td><td>Nome de usuário para autenticação.</td></tr>
                           <tr><td><code>senha</code></td><td><code>string</code></td><td>Sim</td><td>Senha do usuário.</td></tr>
-                          <tr><td><code>status</code></td><td><code>integer</code></td><td>Sim</td><td>Status da nota fiscal (Ex: 0 para inativo, 1 para ativo).</td></tr>
-                          <tr><td><code>nf</code></td><td><code>string</code></td><td>Sim</td><td>Número da nota fiscal.</td></tr>
-                          <tr><td><code>serie</code></td><td><code>string</code></td><td>Sim</td><td>Série da nota fiscal.</td></tr>
-                          <tr><td><code>cfop</code></td><td><code>string</code></td><td>Sim</td><td>CFOP (Código Fiscal de Operações e Prestações).</td></tr>
-                          <tr><td><code>natureza</code></td><td><code>string</code></td><td>Sim</td><td>Natureza da operação.</td></tr>
-                          <tr><td><code>cliente</code></td><td><code>integer</code></td><td>Sim</td><td>ID do cliente.</td></tr>
-                          <tr><td><code>emitente</code></td><td><code>integer</code></td><td>Sim</td><td>ID do emitente.</td></tr>
-                          <tr><td><code>transportadora</code></td><td><code>integer</code></td><td>Sim</td><td>ID da transportadora.</td></tr>
-                          <tr><td><code>tipomovimento</code></td><td><code>integer</code></td><td>Sim</td><td>Tipo de movimento (Ex: 1 para entrada, 2 para saída).</td></tr>
-                          <tr><td><code>valortotal</code></td><td><code>number</code></td><td>Sim</td><td>Valor total da nota fiscal.</td></tr>
+                          <tr><td><code>status</code></td><td><code>integer</code></td><td>Sim</td><td>Status da nota fiscal.</td></tr>
+                          <tr><td><code>nf</code></td><td><code>integer</code></td><td>Sim</td><td>Número da nota fiscal.</td></tr>
+                          <tr><td><code>valorbruto</code></td><td><code>float</code></td><td>Sim</td><td>Valor bruto da nota fiscal.</td></tr>
+                          <tr><td><code>datacompra</code></td><td><code>string</code></td><td>Sim</td><td>Data da compra no formato ISO 8601 (YYYY-MM-DDTHH:MM:SS).</td></tr>
                           <tr><td><code>obs</code></td><td><code>string</code></td><td>Opcional</td><td>Observações adicionais.</td></tr>
                           <tr><td><code>itens</code></td><td><code>array&lt;object&gt;</code></td><td>Sim</td><td>Lista de itens da nota fiscal. Cada objeto de item deve conter:
                               <ul class="list-disc list-inside ml-4">
                                   <li><code>item</code> (<code>integer</code>): ID do item.</li>
                                   <li><code>status</code> (<code>integer</code>): Status do item na nota fiscal.</li>
-                                  <li><code>qtd</code> (<code>number</code>): Quantidade do item.</li>
+                                  <li><code>qtd</code> (<code>integer</code>): Quantidade do item.</li>
                                   <li><code>tipofaturamento</code> (<code>integer</code>): Tipo de faturamento (1 para VALORUNITARIO, outro para VALORCONJUNTO).</li>
-                                  <li><code>valorfaturamento</code> (<code>number</code>): Valor de faturamento do item.</li>
+                                  <li><code>valorfaturamento</code> (<code>float</code>): Valor de faturamento do item.</li>
                                   <li><code>obs</code> (<code>string</code>): Observação do item.</li>
                               </ul>
                           </td></tr>
@@ -254,38 +249,30 @@ async function autenticarUsuario() {
 async function inserirNotaFiscal() {
     const url = 'http://localhost:8000/inserir/notafiscal';
     const data = {
-        "sistema":1,
-        "usuario":"kauik.becker",
-        "senha":"kauik123",
-        "status":1,
-        "nf":55555,
-        "valorbruto":45.863,
-        "datacompra":"2023-10-01T00:00:00",
-        "obs":"Teste",
-        "itens":[
+        "sistema": 1,
+        "usuario": "exemplo.usuario",
+        "senha": "senha123",
+        "status": 1,
+        "nf": 12345,
+        "valorbruto": 150.75,
+        "datacompra": "2024-06-07T10:00:00",
+        "obs": "Compra de materiais de escritório",
+        "itens": [
             {
-                "item":6,
-                "status":1,
-                "qtd":10,
-                "tipofaturamento":2,
-                "valorfaturamento":45.86,
-                "obs":"Teste03"
+                "item": 101,
+                "status": 1,
+                "qtd": 5,
+                "tipofaturamento": 1,
+                "valorfaturamento": 10.50,
+                "obs": "Canetas azuis"
             },
             {
-                "item":6,
-                "status":1,
-                "qtd":1,
-                "tipofaturamento":2,
-                "valorfaturamento":45.86,
-                "obs":"Teste04"
-            },
-            {
-               "item":6,
-                "status":1,
-                "qtd":1,
-                "tipofaturamento":2,
-                "valorfaturamento":45.86,
-                "obs":"Teste05"
+                "item": 102,
+                "status": 1,
+                "qtd": 2,
+                "tipofaturamento": 2,
+                "valorfaturamento": 50.00,
+                "obs": "Pacote de papel A4"
             }
         ]
     };
@@ -349,37 +336,34 @@ async function inserirNotaFiscal() {
                           </tr>
                       </thead>
                       <tbody>
-                          <tr><td><code>sistema</code></td><td><code>string</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
+                          <tr><td><code>sistema</code></td><td><code>integer</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
                           <tr><td><code>usuario</code></td><td><code>string</code></td><td>Sim</td><td>Nome de usuário para autenticação.</td></tr>
                           <tr><td><code>senha</code></td><td><code>string</code></td><td>Sim</td><td>Senha do usuário.</td></tr>
-                          <tr><td><code>status</code></td><td><code>integer</code></td><td>Sim</td><td>Status da ordem de serviço.</td></tr>
-                          <tr><td><code>tipo</code></td><td><code>integer</code></td><td>Sim</td><td>Tipo da ordem de serviço.</td></tr>
-                          <tr><td><code>obs</code></td><td><code>string</code></td><td>Opcional</td><td>Observações adicionais.</td></tr>
-                          <tr><td><code>valormaodeobra</code></td><td><code>number</code></td><td>Sim</td><td>Valor da mão de obra.</td></tr>
-                          <tr><td><code>valoritens</code></td><td><code>number</code></td><td>Sim</td><td>Valor dos itens.</td></tr>
-                          <tr><td><code>valortotal</code></td><td><code>number</code></td><td>Sim</td><td>Valor total da ordem de serviço.</td></tr>
+                          <tr><td><code>status</code></td><td><code>integer</code></td><td>Sim</td><td>Status da ordem de serviço (sempre 1 = ATIVO).</td></tr>
+                          <tr><td><code>tipo</code></td><td><code>integer</code></td><td>Sim</td><td>Tipo da ordem de serviço (sempre 1 = VENDA DIRETA).</td></tr>
+                          <tr><td><code>obs</code></td><td><code>string</code></td><td>Opcional</td><td>Observações adicionais (se não informado, será string vazia `""`).</td></tr>
                           <tr><td><code>solicitacaoservico</code></td><td><code>object</code></td><td>Sim</td><td>Objeto da solicitação de serviço associada. Deve conter:
                             <ul class="list-disc list-inside ml-4">
-                                <li><code>status</code> (<code>integer</code>): Status da solicitação de serviço.</li>
-                                <li><code>tipo</code> (<code>integer</code>): Tipo da solicitação de serviço.</li>
-                                <li><code>cliente</code> (<code>integer</code> ou <code>boolean</code>): ID do cliente ou `false` se não cadastrado.</li>
+                                <li><code>status</code> (<code>integer</code>): Status da solicitação de serviço (sempre 2 = VENDIDO).</li>
+                                <li><code>tipo</code> (<code>integer</code>): Tipo da solicitação de serviço (sempre 3 = VENDA DIRETA).</li>
+                                <li><code>cliente</code> (<code>integer</code> ou <code>boolean</code>): ID do cliente ou `false` para cadastrar um novo cliente.</li>
                                 <li><code>cliente_info</code> (<code>object</code>): Informações do cliente, se `cliente` for `false`.
                                     <ul class="list-disc list-inside ml-4">
                                         <li><code>tipo</code> (<code>integer</code>): Tipo de documento (1 para CPF, 2 para CNPJ).</li>
                                         <li><code>nome</code> (<code>string</code>): Nome do cliente.</li>
-                                        <li><code>cpfcnpj</code> (<code>string</code>): CPF ou CNPJ do cliente.</li>
-                                        <li><code>cep</code> (<code>string</code>): CEP do cliente.</li>
-                                        <li><code>telefone</code> (<code>string</code>): Telefone do cliente.</li>
-                                        <li><code>email</code> (<code>string</code>): Email do cliente.</li>
+                                        <li><code>cpfcnpj</code> (<code>string</code>): CPF ou CNPJ do cliente (string vazia `""` para não cadastrar).</li>
+                                        <li><code>cep</code> (<code>string</code>): CEP do cliente (string vazia `""` para não cadastrar).</li>
+                                        <li><code>telefone</code> (<code>string</code>): Telefone do cliente (string vazia `""` para não cadastrar).</li>
+                                        <li><code>email</code> (<code>string</code>): Email do cliente (string vazia `""` para não cadastrar).</li>
                                     </ul>
                                 </li>
-                                <li><code>descricao</code> (<code>string</code>): Descrição da solicitação de serviço.</li>
-                                <li><code>margemlucro</code> (<code>number</code>): Margem de lucro.</li>
-                                <li><code>itens</code> (<code>array&lt;object&gt;</code>): Lista de itens da solicitação.
+                                <li><code>descricao</code> (<code>string</code>): Descrição da venda (sempre "Venda de produto").</li>
+                                <li><code>margemlucro</code> (<code>float</code>): Margem de lucro (ex: 20.6% de margem de lucro).</li>
+                                <li><code>itens</code> (<code>array&lt;object&gt;</code>): Lista de itens da solicitação (obrigatório).
                                     <ul class="list-disc list-inside ml-4">
-                                        <li><code>item</code> (<code>integer</code>): ID do item.</li>
+                                        <li><code>item</code> (<code>integer</code>): ID do item cadastrado.</li>
                                         <li><code>quantidade</code> (<code>integer</code>): Quantidade do item.</li>
-                                        <li><code>tipo</code> (<code>integer</code>): Tipo (1 para venda, 2 para troca, 3 para devolução).</li>
+                                        <li><code>tipo</code> (<code>integer</code>): Tipo (sempre 1 = venda).</li>
                                     </ul>
                                 </li>
                             </ul>
@@ -392,31 +376,31 @@ async function inserirNotaFiscal() {
 async function inserirOrdemServicoCompra() {
     const url = 'http://localhost:8000/inserir/ordemservico_compra';
     const data = {
-        "sistema":1,
-        "usuario":"kauik.becker",
-        "senha":"kauik123",
-        "status":1,
-        "tipo":1, // 1 = VENDA DIRETA
-        "obs": "Teste observação",
-        "solicitacaoservico":{
-            "status":2, // 2 = VENDIDO
-            "tipo":3, // 3 = VENDA DIRETA
-            "cliente": false, // false = não cadastrado, ou id do cliente
-            "cliente_info":{ // false = cliente ja cadastrado
-                "tipo": 1, // 1 = CPF, 2 = CNPJ
-                "nome":"Kauik Becker",
-                "cpfcnpj":"12345678900", // CPF ou CNPJ, vazio PARA NÃO CADATRAR
-                "cep":"", // CEP do cliente, vazio PARA NÃO CADATRAR
-                "telefone":"11999999999", // Telefone do cliente, vazio PARA NÃO CADATRAR
-                "email":"" // Email do cliente, vazio PARA NÃO CADATRAR
+        "sistema": 1,
+        "usuario": "exemplo.usuario",
+        "senha": "senha123",
+        "status": 1,
+        "tipo": 1,
+        "obs": "Ordem de serviço para venda direta de produto.",
+        "solicitacaoservico": {
+            "status": 2,
+            "tipo": 3,
+            "cliente": false,
+            "cliente_info": {
+                "tipo": 1,
+                "nome": "João Silva",
+                "cpfcnpj": "11122233344",
+                "cep": "01001000",
+                "telefone": "11987654321",
+                "email": "joao.silva@example.com"
             },
-            "descricao":"Venda de produto",
-            "margemlucro":20.6, // 20,6% de margem de lucro
-            "itens":[
+            "descricao": "Venda de produto",
+            "margemlucro": 25.5,
+            "itens": [
                 {
-                    "item":100, // id do item
-                    "quantidade":1, // quantidade do item
-                    "tipo":1 // 1 = venda, 2 = troca, 3 = devolução
+                    "item": 201,
+                    "quantidade": 1,
+                    "tipo": 1
                 }
             ]
         }
@@ -482,7 +466,7 @@ async function inserirOrdemServicoCompra() {
                           </tr>
                       </thead>
                       <tbody>
-                          <tr><td><code>sistema</code></td><td><code>string</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
+                          <tr><td><code>sistema</code></td><td><code>integer</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
                           <tr><td><code>usuario</code></td><td><code>string</code></td><td>Sim</td><td>Nome de usuário para autenticação.</td></tr>
                           <tr><td><code>senha</code></td><td><code>string</code></td><td>Sim</td><td>Senha do usuário.</td></tr>
                           <tr><td><code>status</code></td><td><code>integer</code></td><td>Sim</td><td>Status do grupo (Ex: 0 para inativo, 1 para ativo).</td></tr>
@@ -496,12 +480,12 @@ async function inserirOrdemServicoCompra() {
 async function inserirGrupoItem() {
     const url = 'http://localhost:8000/inserir/grupoitem';
     const data = {
-        "sistema":1,
-        "usuario":"kauik.becker",
-        "senha":"kauik123",
-        "status":1,
-        "descricao":"Capinha de celular",
-        "exigeaprovacao":0
+        "sistema": 1,
+        "usuario": "exemplo.usuario",
+        "senha": "senha123",
+        "status": 1,
+        "descricao": "Material de Escritório",
+        "exigeaprovacao": 0
     };
 
     try {
@@ -573,7 +557,7 @@ async function inserirGrupoItem() {
                           </tr>
                       </thead>
                       <tbody>
-                          <tr><td><code>sistema</code></td><td><code>string</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
+                          <tr><td><code>sistema</code></td><td><code>integer</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
                           <tr><td><code>usuario</code></td><td><code>string</code></td><td>Sim</td><td>Nome de usuário para autenticação.</td></tr>
                           <tr><td><code>senha</code></td><td><code>string</code></td><td>Sim</td><td>Senha do usuário.</td></tr>
                           <tr><td><code>status</code></td><td><code>integer</code></td><td>Sim</td><td>Status do subgrupo (Ex: 0 para inativo, 1 para ativo).</td></tr>
@@ -587,12 +571,12 @@ async function inserirGrupoItem() {
 async function inserirSubgrupoItem() {
     const url = 'http://localhost:8000/inserir/subgrupoitem';
     const data = {
-        "sistema":1,
-        "usuario":"kauik.becker",
-        "senha":"kauik123",
-        "status":1,
-        "descricao":"Motorola lisa",
-        "grupo":102
+        "sistema": 1,
+        "usuario": "exemplo.usuario",
+        "senha": "senha123",
+        "status": 1,
+        "descricao": "Canetas",
+        "grupo": 102 // Exemplo: ID de um grupo existente, como 'Material de Escritório'
     };
 
     try {
@@ -651,7 +635,7 @@ async function inserirSubgrupoItem() {
           <section id="inserir-item" class="mb-10 p-6 bg-white rounded-lg shadow-md">
               <div class="mb-6">
                   <h3 class="text-xl font-medium text-gray-700 mb-2">2.5. <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">POST</span> /inserir/item</h3>
-                  <p class="text-gray-700 mb-4">Insere um novo item no sistema, associado a um grupo e subgrupo.</p>
+                  <p class="text-gray-700 mb-4">Insere um novo item no sistema, associado a um grupo e subgrupo. Permite cadastrar o grupo e/ou subgrupo junto se ainda não existirem.</p>
 
                   <h4 class="text-lg font-medium text-gray-700 mb-2">Parâmetros da Requisição (Payload JSON):</h4>
                   <table class="min-w-full bg-white rounded-lg">
@@ -664,30 +648,30 @@ async function inserirSubgrupoItem() {
                           </tr>
                       </thead>
                       <tbody>
-                          <tr><td><code>sistema</code></td><td><code>string</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
+                          <tr><td><code>sistema</code></td><td><code>integer</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
                           <tr><td><code>usuario</code></td><td><code>string</code></td><td>Sim</td><td>Nome de usuário para autenticação.</td></tr>
                           <tr><td><code>senha</code></td><td><code>string</code></td><td>Sim</td><td>Senha do usuário.</td></tr>
-                          <tr><td><code>status</code></td><td><code>integer</code></td><td>Sim</td><td>Status do item (Ex: 0 para inativo, 1 para ativo).</td></tr>
+                          <tr><td><code>status</code></td><td><code>integer</code></td><td>Sim</td><td>Status do item (1 para ativo).</td></tr>
                           <tr><td><code>descricao</code></td><td><code>string</code></td><td>Sim</td><td>Descrição do item.</td></tr>
-                          <tr><td><code>grupo</code></td><td><code>integer</code> ou <code>boolean</code></td><td>Sim</td><td>ID do grupo de item ao qual o item pertence, ou `false` para cadastrar um novo grupo.</td></tr>
+                          <tr><td><code>grupo</code></td><td><code>integer</code> ou <code>boolean</code></td><td>Sim</td><td>ID do grupo já cadastrado, ou `false` para cadastrar um novo grupo.</td></tr>
                           <tr><td><code>grupoinfo</code></td><td><code>object</code></td><td>Opcional (se <code>grupo</code> for `false`)</td><td>Informações do novo grupo, se `grupo` for `false`.
                             <ul class="list-disc list-inside ml-4">
-                                <li><code>status</code> (<code>integer</code>): Status do grupo.</li>
-                                <li><code>descricao</code> (<code>string</code>): Descrição do grupo.</li>
-                                <li><code>exigeaprovacao</code> (<code>integer</code>): Indica se o grupo exige aprovação (0 para não, 1 para sim).</li>
+                                <li><code>status</code> (<code>integer</code>): Sempre 1.</li>
+                                <li><code>descricao</code> (<code>string</code>): Descrição do grupo (obrigatório se `grupo` for `false`).</li>
+                                <li><code>exigeaprovacao</code> (<code>integer</code>): Indica se o grupo exige aprovação (0 para não, 1 para sim - obrigatório se `grupo` for `false`).</li>
                             </ul>
                           </td></tr>
-                          <tr><td><code>subgrupo</code></td><td><code>integer</code> ou <code>boolean</code></td><td>Sim</td><td>ID do subgrupo de item ao qual o item pertence, ou `false` para cadastrar um novo subgrupo.</td></tr>
+                          <tr><td><code>subgrupo</code></td><td><code>integer</code> ou <code>boolean</code></td><td>Sim</td><td>ID do subgrupo já cadastrado, ou `false` para cadastrar um novo subgrupo.</td></tr>
                           <tr><td><code>subgrupoinfo</code></td><td><code>object</code></td><td>Opcional (se <code>subgrupo</code> for `false`)</td><td>Informações do novo subgrupo, se `subgrupo` for `false`.
                             <ul class="list-disc list-inside ml-4">
-                                <li><code>status</code> (<code>integer</code>): Status do subgrupo.</li>
-                                <li><code>descricao</code> (<code>string</code>): Descrição do subgrupo.</li>
+                                <li><code>status</code> (<code>integer</code>): Sempre 1.</li>
+                                <li><code>descricao</code> (<code>string</code>): Descrição do subgrupo (obrigatório se `subgrupo` for `false`).</li>
                             </ul>
                           </td></tr>
                           <tr><td><code>tipovalidade</code></td><td><code>integer</code></td><td>Sim</td><td>Tipo de validade (0 para sem validade, 1 para DIAS, 2 para MESES, 3 para ANOS).</td></tr>
-                          <tr><td><code>validade</code></td><td><code>string</code> ou <code>integer</code></td><td>Sim (se <code>tipovalidade</code> for diferente de 0)</td><td>Valor da validade (vazio para sem validade, inteiro para dias/meses/anos).</td></tr>
-                          <tr><td><code>temgarantia</code></td><td><code>integer</code></td><td>Sim</td><td>Indica se o item tem garantia (0 para não, 1 para sim).</td></tr>
-                          <tr><td><code>garantia</code></td><td><code>string</code> ou <code>integer</code></td><td>Sim (se <code>temgarantia</code> for 1)</td><td>Duração da garantia (vazio para sem garantia, inteiro para dias/meses/anos).</td></tr>
+                          <tr><td><code>validade</code></td><td><code>string</code> ou <code>integer</code></td><td>Sim (se <code>tipovalidade</code> for diferente de 0)</td><td>Valor da validade (vazio `""` para não ter validade, inteiro para dias/meses/anos).</td></tr>
+                          <tr><td><code>temgarantia</code></td><td><code>integer</code></td><td>Sim</td><td>Indica se o item tem garantia (0 para não, 1 para DIAS, 2 para MESES, 3 para ANOS).</td></tr>
+                          <tr><td><code>garantia</code></td><td><code>string</code> ou <code>integer</code></td><td>Sim (se <code>temgarantia</code> for 1, 2 ou 3)</td><td>Duração da garantia (vazio `""` para não ter garantia, inteiro para dias/meses/anos).</td></tr>
                       </tbody>
                   </table>
 
@@ -697,25 +681,25 @@ async function inserirItem() {
     const url = 'http://localhost:8000/inserir/item';
     const data = {
         "sistema": 1,
-        "usuario": "kauik.becker",
-        "senha": "kauik123",
+        "usuario": "exemplo.usuario",
+        "senha": "senha123",
         "status": 1,
-        "descricao": "Samsung preta lisa s21 FE",
-        "grupo": 102, // FALSE PARA CADASTRAR GRUPO
-        "grupoinfo": { // PREENCHE SOMENTE SE NÃO TIVER GRUPO
-            "status":1,
-            "descricao":"Capinha de celular",
-            "exigeaprovacao":0
-            },
-        "subgrupo": 101, // FALSE PARA CADASTRAR SUBGRUPO
-        "subgrupoinfo": { // PREENCHE SOMENTE SE NÃO TIVER SUBGRUPO
-            "status":1,
-            "descricao":"Samsung"
-            },
-        "tipovalidade": 0, // 0 PARA SEM VALIDADE - 1 PARA DIAS - 2 PARA MESES - 3 PARA ANOS
-        "validade": "", // VAZIO PARA NÃO TEM VALIDADE - INT PARA DIAS, MESES OU ANOS
-        "temgarantia": 1,  // 0 PARA NÃO TEM GARANTIA, 1 PARA DIA, 2 PARA MÊS, 3 PARA ANO
-        "garantia": 7 // VAZIO ("") PARA NÃO TEM GARANTIA, INT PARA DIAS, MESES OU ANOS
+        "descricao": "Teclado Mecânico RGB",
+        "grupo": false,
+        "grupoinfo": {
+            "status": 1,
+            "descricao": "Periféricos",
+            "exigeaprovacao": 0
+        },
+        "subgrupo": false,
+        "subgrupoinfo": {
+            "status": 1,
+            "descricao": "Teclados"
+        },
+        "tipovalidade": 0,
+        "validade": "",
+        "temgarantia": 1,
+        "garantia": 24
     };
 
     try {
@@ -761,11 +745,103 @@ async function inserirItem() {
               </div>
           </section>
 
+          <!-- Alterar Item -->
+          <section id="alterar-item" class="mb-10 p-6 bg-white rounded-lg shadow-md">
+              <h2 class="text-2xl font-semibold text-gray-800 mb-4">3. Alteração de Dados</h2>
+              <div class="mb-6">
+                  <h3 class="text-xl font-medium text-gray-700 mb-2">3.1. <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">PUT</span> /alterar/item</h3>
+                  <p class="text-gray-700 mb-4">Altera as informações de um item existente no sistema. Apenas os campos fornecidos serão atualizados.</p>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Parâmetros da Requisição (Payload JSON):</h4>
+                  <table class="min-w-full bg-white rounded-lg">
+                      <thead>
+                          <tr>
+                              <th>Campo</th>
+                              <th>Tipo</th>
+                              <th>Obrigatório</th>
+                              <th>Descrição</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td><code>sistema</code></td><td><code>integer</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
+                          <tr><td><code>usuario</code></td><td><code>string</code></td><td>Sim</td><td>Nome de usuário para autenticação.</td></tr>
+                          <tr><td><code>senha</code></td><td><code>string</code></td><td>Sim</td><td>Senha do usuário.</td></tr>
+                          <tr><td><code>id</code></td><td><code>integer</code></td><td>Sim</td><td>ID do item a ser alterado.</td></tr>
+                          <tr><td><code>descricao</code></td><td><code>string</code></td><td>Opcional</td><td>Nova descrição do item.</td></tr>
+                          <tr><td><code>grupo</code></td><td><code>integer</code> ou <code>boolean</code></td><td>Opcional</td><td>Novo ID do grupo, ou `false` para não alterar.</td></tr>
+                          <tr><td><code>subgrupo</code></td><td><code>integer</code> ou <code>boolean</code></td><td>Opcional</td><td>Novo ID do subgrupo, ou `false` para não alterar.</td></tr>
+                          <tr><td><code>tipovalidade</code></td><td><code>integer</code> ou <code>boolean</code></td><td>Opcional</td><td>Novo tipo de validade, ou `false` para não alterar.</td></tr>
+                          <tr><td><code>validade</code></td><td><code>string</code>, <code>integer</code> ou <code>boolean</code></td><td>Opcional</td><td>Nova validade, ou `false` para não alterar.</td></tr>
+                          <tr><td><code>temgarantia</code></td><td><code>integer</code> ou <code>boolean</code></td><td>Opcional</td><td>Novo indicador de garantia, ou `false` para não alterar.</td></tr>
+                          <tr><td><code>garantia</code></td><td><code>string</code>, <code>integer</code> ou <code>boolean</code></td><td>Opcional</td><td>Nova duração da garantia, ou `false` para não alterar.</td></tr>
+                      </tbody>
+                  </table>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Exemplo de Requisição (JavaScript - Fetch API):</h4>
+                  <pre><code class="language-javascript">
+async function alterarItem() {
+    const url = 'http://localhost:8000/alterar/item';
+    const data = {
+        "sistema": 1,
+        "usuario": "exemplo.usuario",
+        "senha": "senha123",
+        "id": 103, // ID do item a ser alterado
+        "descricao": "Processador Intel Core i7 14ª Gen",
+        "grupo": false, // Não altera o grupo
+        "subgrupo": 201, // Altera para o subgrupo com ID 201
+        "tipovalidade": 0, // Sem validade
+        "validade": "", // Vazio para sem validade
+        "temgarantia": 1, // Com garantia
+        "garantia": 36 // 36 meses de garantia
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            console.log("Item alterado com sucesso:", result);
+        } else {
+            console.error("Erro ao alterar item:", result.mensagem || result.detail);
+        }
+        return result;
+    } catch (error) {
+        console.error("Erro ao conectar à API:", error);
+        throw error;
+    }
+}
+
+// alterarItem();
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Exemplo de Resposta (Sucesso):</h4>
+                  <pre><code class="language-json">
+{
+    "mensagem": "Item atualizado com sucesso",
+    "status": 1
+}
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Códigos de Status HTTP:</h4>
+                  <ul class="list-disc list-inside text-gray-700">
+                      <li><code class="bg-gray-200 px-1 rounded">200 OK</code>: Requisição bem-sucedida.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">400 Bad Request</code>: Campos inválidos no payload.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">500 Internal Server Error</code>: Erro interno no servidor ou no banco de dados.</li>
+                  </ul>
+              </div>
+          </section>
+
           <!-- Listagem de Dados -->
           <section id="listar-estoque" class="mb-10 p-6 bg-white rounded-lg shadow-md">
-              <h2 class="text-2xl font-semibold text-gray-800 mb-4">3. Listagem de Dados</h2>
+              <h2 class="text-2xl font-semibold text-gray-800 mb-4">4. Listagem de Dados</h2>
               <div class="mb-6">
-                  <h3 class="text-xl font-medium text-gray-700 mb-2">3.1. <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">POST</span> /lista/estoque</h3>
+                  <h3 class="text-xl font-medium text-gray-700 mb-2">4.1. <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">POST</span> /lista/estoque</h3>
                   <p class="text-gray-700 mb-4">Lista os itens do estoque com paginação.</p>
 
                   <h4 class="text-lg font-medium text-gray-700 mb-2">Parâmetros da Requisição (Payload JSON):</h4>
@@ -779,7 +855,7 @@ async function inserirItem() {
                           </tr>
                       </thead>
                       <tbody>
-                          <tr><td><code>sistema</code></td><td><code>string</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
+                          <tr><td><code>sistema</code></td><td><code>integer</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
                           <tr><td><code>usuario</code></td><td><code>string</code></td><td>Sim</td><td>Nome de usuário para autenticação.</td></tr>
                           <tr><td><code>senha</code></td><td><code>string</code></td><td>Sim</td><td>Senha do usuário.</td></tr>
                           <tr><td><code>pagina</code></td><td><code>integer</code></td><td>Sim</td><td>Número da página para listar os resultados. Cada página contém 25 itens.</td></tr>
@@ -792,9 +868,9 @@ async function listarEstoque(pagina = 1) {
     const url = 'http://localhost:8000/lista/estoque';
     const data = {
         "sistema": 1,
-        "usuario": "kauik.becker",
-        "senha": "kauik123",
-        "pagina":1
+        "usuario": "exemplo.usuario",
+        "senha": "senha123",
+        "pagina": 1
     };
 
     try {
@@ -854,7 +930,7 @@ async function listarEstoque(pagina = 1) {
           <!-- Listar Itens -->
           <section id="listar-itens" class="mb-10 p-6 bg-white rounded-lg shadow-md">
               <div class="mb-6">
-                  <h3 class="text-xl font-medium text-gray-700 mb-2">3.2. <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">POST</span> /lista/itens</h3>
+                  <h3 class="text-xl font-medium text-gray-700 mb-2">4.2. <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">POST</span> /lista/itens</h3>
                   <p class="text-gray-700 mb-4">Lista os itens cadastrados com paginação e filtros opcionais por nome e status.</p>
 
                   <h4 class="text-lg font-medium text-gray-700 mb-2">Parâmetros da Requisição (Payload JSON):</h4>
@@ -868,7 +944,7 @@ async function listarEstoque(pagina = 1) {
                           </tr>
                       </thead>
                       <tbody>
-                          <tr><td><code>sistema</code></td><td><code>string</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
+                          <tr><td><code>sistema</code></td><td><code>integer</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
                           <tr><td><code>usuario</code></td><td><code>string</code></td><td>Sim</td><td>Nome de usuário para autenticação.</td></tr>
                           <tr><td><code>senha</code></td><td><code>string</code></td><td>Sim</td><td>Senha do usuário.</td></tr>
                           <tr><td><code>pagina</code></td><td><code>integer</code></td><td>Sim</td><td>Número da página para listar os resultados. Cada página contém 30 itens.</td></tr>
@@ -886,19 +962,16 @@ async function listarEstoque(pagina = 1) {
 
                   <h4 class="text-lg font-medium text-gray-700 mb-2">Exemplo de Requisição (JavaScript - Fetch API):</h4>
                   <pre><code class="language-javascript">
-async function listarItens(pagina = 1, filtros = false) {
+async function listarItens(pagina = 1, filtros = {}) {
     const url = 'http://localhost:8000/lista/itens';
     const data = {
         "sistema": 1,
-        "usuario": "kauik.becker",
-        "senha": "kauik123",
-        "pagina":1,
-        "filtros": { // False para desabilitar filtros
-            "nome":"texto",
-            "id":123,
-            "grupo":"example_group",
-            "subgrupo":"example_subgroup",
-            "status":1
+        "usuario": "exemplo.usuario",
+        "senha": "senha123",
+        "pagina": 1,
+        "filtros": {
+            "nome": "Smartphone",
+            "status": 1
         }
     };
 
@@ -974,7 +1047,7 @@ async function listarItens(pagina = 1, filtros = false) {
           </section>
 
           <section id="tratamento-erros" class="mb-10 p-6 bg-red-50 rounded-lg shadow-inner">
-              <h2 class="text-2xl font-semibold text-red-800 mb-4">4. Tratamento de Erros</h2>
+              <h2 class="text-2xl font-semibold text-red-800 mb-4">5. Tratamento de Erros</h2>
               <p class="text-gray-700 leading-relaxed">
                   A API retorna códigos de status HTTP para indicar o resultado da requisição e um corpo de resposta JSON com uma mensagem (`mensagem`) e, em alguns casos, um status (`status`) ou detalhes (`detail`) adicionais.
               </p>

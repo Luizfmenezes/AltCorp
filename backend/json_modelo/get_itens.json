@@ -1,0 +1,13 @@
+{
+    "sistema": 1, // int obrigatório
+    "usuario": "kauik.becker", // string obrigatório
+    "senha": "kauik123", // string obrigatório
+    "pagina":1, // int obrigatório
+    "filtros":{ // opcional - false para não filtrar ou objeto com filtros
+        "nome":"texto", // string opcional
+        "id":123, // int opcional
+        "grupo":"example_group", // string opcional
+        "subgrupo":"example_subgroup", // string opcional
+        "status":1 // int opcional
+    }
+}
