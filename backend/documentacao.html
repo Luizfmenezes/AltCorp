@@ -1,0 +1,998 @@
+<!-- Documentação da API em HTML -->
+  <!DOCTYPE html>
+  <html lang="pt-BR">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Documentação da API</title>
+      <!-- Tailwind CSS CDN -->
+      <script src="https://cdn.tailwindcss.com"></script>
+      <style>
+          /* Fonte Inter para o corpo */
+          body {
+              font-family: 'Inter', sans-serif;
+              background-color: #f3f4f6;
+              color: #333;
+          }
+          /* Estilo para blocos de código */
+          pre code {
+              display: block;
+              padding: 1rem;
+              background-color: #1f2937; /* bg-gray-800 */
+              color: #f9fafb; /* text-gray-50 */
+              border-radius: 0.5rem; /* rounded-md */
+              overflow-x: auto;
+              white-space: pre-wrap; /* Quebra de linha para códigos longos */
+          }
+          /* Estilo para tabelas */
+          table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-top: 1rem;
+              margin-bottom: 1rem;
+              border-radius: 0.5rem; /* rounded-lg */
+              overflow: hidden; /* Garante que bordas arredondadas funcionem */
+          }
+          th, td {
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
+          }
+          th {
+              background-color: #e5e7eb; /* bg-gray-200 */
+              font-weight: 600; /* font-semibold */
+          }
+          /* Estilo para links de navegação */
+          .nav-link {
+              display: block;
+              padding: 0.5rem 0;
+              color: #4b5563; /* text-gray-600 */
+              transition: color 0.2s;
+              font-weight: 500;
+          }
+          .nav-link:hover {
+              color: #1f2937; /* text-gray-800 */
+          }
+      </style>
+  </head>
+  <body class="p-4 md:p-8 lg:p-12">
+      <div class="max-w-7xl mx-auto bg-white shadow-lg rounded-xl p-6 md:p-8 lg:p-10">
+
+          <header class="mb-8 text-center">
+              <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">Documentação da API</h1>
+              <p class="text-lg text-gray-600">Um guia completo para integrar e utilizar os endpoints da API.</p>
+          </header>
+
+          <nav class="mb-8 border-b border-gray-200 pb-4">
+              <h2 class="text-2xl font-semibold text-gray-800 mb-4">Índice</h2>
+              <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-2">
+                  <li><a href="#autenticacao" class="nav-link">Autenticação</a></li>
+                  <li><a href="#inserir-notafiscal" class="nav-link">Inserir Nota Fiscal</a></li>
+                  <li><a href="#inserir-ordemservico-compra" class="nav-link">Inserir Ordem de Serviço de Compra</a></li>
+                  <li><a href="#inserir-grupoitem" class="nav-link">Inserir Grupo de Item</a></li>
+                  <li><a href="#inserir-subgrupoitem" class="nav-link">Inserir Subgrupo de Item</a></li>
+                  <li><a href="#inserir-item" class="nav-link">Inserir Item</a></li>
+                  <li><a href="#listar-estoque" class="nav-link">Listar Estoque</a></li>
+                  <li><a href="#listar-itens" class="nav-link">Listar Itens</a></li>
+              </ul>
+          </nav>
+
+          <section id="visao-geral" class="mb-10 p-6 bg-blue-50 rounded-lg shadow-inner">
+              <h2 class="text-2xl font-semibold text-blue-800 mb-4">Visão Geral da API</h2>
+              <p class="text-gray-700 leading-relaxed">
+                  Esta API fornece endpoints para gerenciar autenticação, inserção de dados (notas fiscais, ordens de serviço, itens, grupos e subgrupos de itens) e listagem de dados (estoque e itens). Todas as requisições devem ser feitas com o método especificado e o corpo da requisição deve ser um JSON válido.
+              </p>
+              <p class="text-gray-700 leading-relaxed mt-2">
+                  A URL base para todos os endpoints é <code class="bg-gray-200 p-1 rounded">http://localhost:8000</code>. Lembre-se de substituir pela URL real do seu servidor de API.
+              </p>
+              <h3 class="text-xl font-medium text-gray-800 mt-6 mb-2">Autenticação</h3>
+              <p class="text-gray-700 leading-relaxed">
+                  Todos os endpoints que interagem com o banco de dados (exceto o próprio endpoint de autenticação) esperam que as credenciais do usuário (`sistema`, `usuario`, `senha`) sejam fornecidas no corpo da requisição JSON para validação.
+              </p>
+          </section>
+
+          <!-- Autenticação -->
+          <section id="autenticacao" class="mb-10 p-6 bg-white rounded-lg shadow-md">
+              <h2 class="text-2xl font-semibold text-gray-800 mb-4">1. Autenticação</h2>
+              <div class="mb-6">
+                  <h3 class="text-xl font-medium text-gray-700 mb-2">1.1. <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">POST</span> /autenticar</h3>
+                  <p class="text-gray-700 mb-4">Autentica um usuário fornecendo suas credenciais de sistema, usuário e senha.</p>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Parâmetros da Requisição (Payload JSON):</h4>
+                  <table class="min-w-full bg-white rounded-lg">
+                      <thead>
+                          <tr>
+                              <th>Campo</th>
+                              <th>Tipo</th>
+                              <th>Obrigatório</th>
+                              <th>Descrição</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td><code>sistema</code></td>
+                              <td><code>string</code></td>
+                              <td>Sim</td>
+                              <td>Identificador do sistema.</td>
+                          </tr>
+                          <tr>
+                              <td><code>usuario</code></td>
+                              <td><code>string</code></td>
+                              <td>Sim</td>
+                              <td>Nome de usuário para autenticação.</td>
+                          </tr>
+                          <tr>
+                              <td><code>senha</code></td>
+                              <td><code>string</code></td>
+                              <td>Sim</td>
+                              <td>Senha do usuário.</td>
+                          </tr>
+                      </tbody>
+                  </table>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Exemplo de Requisição (JavaScript - Fetch API):</h4>
+                  <pre><code class="language-javascript">
+async function autenticarUsuario() {
+    // Substitua 'http://localhost:8000' pela URL base da sua API
+    const url = 'http://localhost:8000/autenticar';
+    const data = {
+        "sistema": 1,
+        "usuario": "kauik.becker",
+        "senha": "kauik123"
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            console.log("Autenticação bem-sucedida:", result);
+            // Prossiga com a lógica do seu aplicativo, como armazenar informações de sessão
+        } else {
+            console.error("Erro na autenticação:", result.mensagem || result.detail);
+        }
+        return result;
+    } catch (error) {
+        console.error("Erro ao conectar à API:", error);
+        throw error;
+    }
+}
+
+// Exemplo de como chamar a função:
+// autenticarUsuario()
+//     .then(data => console.log('Resultado da autenticação:', data))
+//     .catch(error => console.error('Falha na autenticação:', error));
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Exemplo de Resposta (Sucesso):</h4>
+                  <pre><code class="language-json">
+{
+    "mensagem": "Usuario logado com sucesso",
+    "status": 1,
+    "admin": 1
+}
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Exemplo de Resposta (Erro - Credenciais Incorretas):</h4>
+                  <pre><code class="language-json">
+{
+    "mensagem": "Usuario ou senha incorretos",
+    "status": 0
+}
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Exemplo de Resposta (Erro - Usuário Bloqueado):</h4>
+                  <pre><code class="language-json">
+{
+    "mensagem": "Usuario bloqueado ou indisponivel",
+    "status": 0
+}
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Códigos de Status HTTP:</h4>
+                  <ul class="list-disc list-inside text-gray-700">
+                      <li><code class="bg-gray-200 px-1 rounded">200 OK</code>: Requisição bem-sucedida.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">400 Bad Request</code>: Campos obrigatórios ausentes no payload.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">500 Internal Server Error</code>: Erro interno no servidor.</li>
+                  </ul>
+              </div>
+          </section>
+
+          <!-- Inserir Nota Fiscal -->
+          <section id="inserir-notafiscal" class="mb-10 p-6 bg-white rounded-lg shadow-md">
+              <h2 class="text-2xl font-semibold text-gray-800 mb-4">2. Inserção de Dados</h2>
+              <div class="mb-6">
+                  <h3 class="text-xl font-medium text-gray-700 mb-2">2.1. <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">POST</span> /inserir/notafiscal</h3>
+                  <p class="text-gray-700 mb-4">Insere uma nova nota fiscal no sistema, incluindo seus itens associados.</p>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Parâmetros da Requisição (Payload JSON):</h4>
+                  <table class="min-w-full bg-white rounded-lg">
+                      <thead>
+                          <tr>
+                              <th>Campo</th>
+                              <th>Tipo</th>
+                              <th>Obrigatório</th>
+                              <th>Descrição</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td><code>sistema</code></td><td><code>string</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
+                          <tr><td><code>usuario</code></td><td><code>string</code></td><td>Sim</td><td>Nome de usuário para autenticação.</td></tr>
+                          <tr><td><code>senha</code></td><td><code>string</code></td><td>Sim</td><td>Senha do usuário.</td></tr>
+                          <tr><td><code>status</code></td><td><code>integer</code></td><td>Sim</td><td>Status da nota fiscal (Ex: 0 para inativo, 1 para ativo).</td></tr>
+                          <tr><td><code>nf</code></td><td><code>string</code></td><td>Sim</td><td>Número da nota fiscal.</td></tr>
+                          <tr><td><code>serie</code></td><td><code>string</code></td><td>Sim</td><td>Série da nota fiscal.</td></tr>
+                          <tr><td><code>cfop</code></td><td><code>string</code></td><td>Sim</td><td>CFOP (Código Fiscal de Operações e Prestações).</td></tr>
+                          <tr><td><code>natureza</code></td><td><code>string</code></td><td>Sim</td><td>Natureza da operação.</td></tr>
+                          <tr><td><code>cliente</code></td><td><code>integer</code></td><td>Sim</td><td>ID do cliente.</td></tr>
+                          <tr><td><code>emitente</code></td><td><code>integer</code></td><td>Sim</td><td>ID do emitente.</td></tr>
+                          <tr><td><code>transportadora</code></td><td><code>integer</code></td><td>Sim</td><td>ID da transportadora.</td></tr>
+                          <tr><td><code>tipomovimento</code></td><td><code>integer</code></td><td>Sim</td><td>Tipo de movimento (Ex: 1 para entrada, 2 para saída).</td></tr>
+                          <tr><td><code>valortotal</code></td><td><code>number</code></td><td>Sim</td><td>Valor total da nota fiscal.</td></tr>
+                          <tr><td><code>obs</code></td><td><code>string</code></td><td>Opcional</td><td>Observações adicionais.</td></tr>
+                          <tr><td><code>itens</code></td><td><code>array&lt;object&gt;</code></td><td>Sim</td><td>Lista de itens da nota fiscal. Cada objeto de item deve conter:
+                              <ul class="list-disc list-inside ml-4">
+                                  <li><code>item</code> (<code>integer</code>): ID do item.</li>
+                                  <li><code>status</code> (<code>integer</code>): Status do item na nota fiscal.</li>
+                                  <li><code>qtd</code> (<code>number</code>): Quantidade do item.</li>
+                                  <li><code>tipofaturamento</code> (<code>integer</code>): Tipo de faturamento (1 para VALORUNITARIO, outro para VALORCONJUNTO).</li>
+                                  <li><code>valorfaturamento</code> (<code>number</code>): Valor de faturamento do item.</li>
+                                  <li><code>obs</code> (<code>string</code>): Observação do item.</li>
+                              </ul>
+                          </td></tr>
+                      </tbody>
+                  </table>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Exemplo de Requisição (JavaScript - Fetch API):</h4>
+                  <pre><code class="language-javascript">
+async function inserirNotaFiscal() {
+    const url = 'http://localhost:8000/inserir/notafiscal';
+    const data = {
+        "sistema":1,
+        "usuario":"kauik.becker",
+        "senha":"kauik123",
+        "status":1,
+        "nf":55555,
+        "valorbruto":45.863,
+        "datacompra":"2023-10-01T00:00:00",
+        "obs":"Teste",
+        "itens":[
+            {
+                "item":6,
+                "status":1,
+                "qtd":10,
+                "tipofaturamento":2,
+                "valorfaturamento":45.86,
+                "obs":"Teste03"
+            },
+            {
+                "item":6,
+                "status":1,
+                "qtd":1,
+                "tipofaturamento":2,
+                "valorfaturamento":45.86,
+                "obs":"Teste04"
+            },
+            {
+               "item":6,
+                "status":1,
+                "qtd":1,
+                "tipofaturamento":2,
+                "valorfaturamento":45.86,
+                "obs":"Teste05"
+            }
+        ]
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            console.log("Nota fiscal inserida com sucesso:", result);
+        } else {
+            console.error("Erro ao inserir nota fiscal:", result.mensagem || result.detail);
+        }
+        return result;
+    } catch (error) {
+        console.error("Erro ao conectar à API:", error);
+        throw error;
+    }
+}
+
+// inserirNotaFiscal();
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Exemplo de Resposta (Sucesso):</h4>
+                  <pre><code class="language-json">
+{
+    "mensagem": "Nota inserida com sucesso",
+    "status": 1
+}
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Códigos de Status HTTP:</h4>
+                  <ul class="list-disc list-inside text-gray-700">
+                      <li><code class="bg-gray-200 px-1 rounded">200 OK</code>: Requisição bem-sucedida.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">400 Bad Request</code>: Campos obrigatórios ausentes ou inválidos.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">500 Internal Server Error</code>: Erro interno no servidor ou no banco de dados.</li>
+                  </ul>
+              </div>
+          </section>
+
+          <!-- Inserir Ordem de Serviço de Compra -->
+          <section id="inserir-ordemservico-compra" class="mb-10 p-6 bg-white rounded-lg shadow-md">
+              <div class="mb-6">
+                  <h3 class="text-xl font-medium text-gray-700 mb-2">2.2. <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">POST</span> /inserir/ordemservico_compra</h3>
+                  <p class="text-gray-700 mb-4">Insere uma nova ordem de serviço de compra no sistema.</p>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Parâmetros da Requisição (Payload JSON):</h4>
+                  <table class="min-w-full bg-white rounded-lg">
+                      <thead>
+                          <tr>
+                              <th>Campo</th>
+                              <th>Tipo</th>
+                              <th>Obrigatório</th>
+                              <th>Descrição</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td><code>sistema</code></td><td><code>string</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
+                          <tr><td><code>usuario</code></td><td><code>string</code></td><td>Sim</td><td>Nome de usuário para autenticação.</td></tr>
+                          <tr><td><code>senha</code></td><td><code>string</code></td><td>Sim</td><td>Senha do usuário.</td></tr>
+                          <tr><td><code>status</code></td><td><code>integer</code></td><td>Sim</td><td>Status da ordem de serviço.</td></tr>
+                          <tr><td><code>tipo</code></td><td><code>integer</code></td><td>Sim</td><td>Tipo da ordem de serviço.</td></tr>
+                          <tr><td><code>obs</code></td><td><code>string</code></td><td>Opcional</td><td>Observações adicionais.</td></tr>
+                          <tr><td><code>valormaodeobra</code></td><td><code>number</code></td><td>Sim</td><td>Valor da mão de obra.</td></tr>
+                          <tr><td><code>valoritens</code></td><td><code>number</code></td><td>Sim</td><td>Valor dos itens.</td></tr>
+                          <tr><td><code>valortotal</code></td><td><code>number</code></td><td>Sim</td><td>Valor total da ordem de serviço.</td></tr>
+                          <tr><td><code>solicitacaoservico</code></td><td><code>object</code></td><td>Sim</td><td>Objeto da solicitação de serviço associada. Deve conter:
+                            <ul class="list-disc list-inside ml-4">
+                                <li><code>status</code> (<code>integer</code>): Status da solicitação de serviço.</li>
+                                <li><code>tipo</code> (<code>integer</code>): Tipo da solicitação de serviço.</li>
+                                <li><code>cliente</code> (<code>integer</code> ou <code>boolean</code>): ID do cliente ou `false` se não cadastrado.</li>
+                                <li><code>cliente_info</code> (<code>object</code>): Informações do cliente, se `cliente` for `false`.
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li><code>tipo</code> (<code>integer</code>): Tipo de documento (1 para CPF, 2 para CNPJ).</li>
+                                        <li><code>nome</code> (<code>string</code>): Nome do cliente.</li>
+                                        <li><code>cpfcnpj</code> (<code>string</code>): CPF ou CNPJ do cliente.</li>
+                                        <li><code>cep</code> (<code>string</code>): CEP do cliente.</li>
+                                        <li><code>telefone</code> (<code>string</code>): Telefone do cliente.</li>
+                                        <li><code>email</code> (<code>string</code>): Email do cliente.</li>
+                                    </ul>
+                                </li>
+                                <li><code>descricao</code> (<code>string</code>): Descrição da solicitação de serviço.</li>
+                                <li><code>margemlucro</code> (<code>number</code>): Margem de lucro.</li>
+                                <li><code>itens</code> (<code>array&lt;object&gt;</code>): Lista de itens da solicitação.
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li><code>item</code> (<code>integer</code>): ID do item.</li>
+                                        <li><code>quantidade</code> (<code>integer</code>): Quantidade do item.</li>
+                                        <li><code>tipo</code> (<code>integer</code>): Tipo (1 para venda, 2 para troca, 3 para devolução).</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            </td></tr>
+                      </tbody>
+                  </table>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Exemplo de Requisição (JavaScript - Fetch API):</h4>
+                  <pre><code class="language-javascript">
+async function inserirOrdemServicoCompra() {
+    const url = 'http://localhost:8000/inserir/ordemservico_compra';
+    const data = {
+        "sistema":1,
+        "usuario":"kauik.becker",
+        "senha":"kauik123",
+        "status":1,
+        "tipo":1, // 1 = VENDA DIRETA
+        "obs": "Teste observação",
+        "solicitacaoservico":{
+            "status":2, // 2 = VENDIDO
+            "tipo":3, // 3 = VENDA DIRETA
+            "cliente": false, // false = não cadastrado, ou id do cliente
+            "cliente_info":{ // false = cliente ja cadastrado
+                "tipo": 1, // 1 = CPF, 2 = CNPJ
+                "nome":"Kauik Becker",
+                "cpfcnpj":"12345678900", // CPF ou CNPJ, vazio PARA NÃO CADATRAR
+                "cep":"", // CEP do cliente, vazio PARA NÃO CADATRAR
+                "telefone":"11999999999", // Telefone do cliente, vazio PARA NÃO CADATRAR
+                "email":"" // Email do cliente, vazio PARA NÃO CADATRAR
+            },
+            "descricao":"Venda de produto",
+            "margemlucro":20.6, // 20,6% de margem de lucro
+            "itens":[
+                {
+                    "item":100, // id do item
+                    "quantidade":1, // quantidade do item
+                    "tipo":1 // 1 = venda, 2 = troca, 3 = devolução
+                }
+            ]
+        }
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            console.log("Ordem de serviço de compra inserida com sucesso:", result);
+        } else {
+            console.error("Erro ao inserir ordem de serviço de compra:", result.mensagem || result.detail);
+        }
+        return result;
+    } catch (error) {
+        console.error("Erro ao conectar à API:", error);
+        throw error;
+    }
+}
+
+// inserirOrdemServicoCompra();
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Exemplo de Resposta (Sucesso):</h4>
+                  <pre><code class="language-json">
+{
+    "mensagem": "venda registrada com sucesso no id 123",
+    "status": 1,
+    "id": 123
+}
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Códigos de Status HTTP:</h4>
+                  <ul class="list-disc list-inside text-gray-700">
+                      <li><code class="bg-gray-200 px-1 rounded">200 OK</code>: Requisição bem-sucedida.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">400 Bad Request</code>: Campos obrigatórios ausentes ou inválidos.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">500 Internal Server Error</code>: Erro interno no servidor ou no banco de dados.</li>
+                  </ul>
+              </div>
+          </section>
+
+          <!-- Inserir Grupo de Item -->
+          <section id="inserir-grupoitem" class="mb-10 p-6 bg-white rounded-lg shadow-md">
+              <div class="mb-6">
+                  <h3 class="text-xl font-medium text-gray-700 mb-2">2.3. <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">POST</span> /inserir/grupoitem</h3>
+                  <p class="text-gray-700 mb-4">Insere um novo grupo de item no sistema.</p>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Parâmetros da Requisição (Payload JSON):</h4>
+                  <table class="min-w-full bg-white rounded-lg">
+                      <thead>
+                          <tr>
+                              <th>Campo</th>
+                              <th>Tipo</th>
+                              <th>Obrigatório</th>
+                              <th>Descrição</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td><code>sistema</code></td><td><code>string</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
+                          <tr><td><code>usuario</code></td><td><code>string</code></td><td>Sim</td><td>Nome de usuário para autenticação.</td></tr>
+                          <tr><td><code>senha</code></td><td><code>string</code></td><td>Sim</td><td>Senha do usuário.</td></tr>
+                          <tr><td><code>status</code></td><td><code>integer</code></td><td>Sim</td><td>Status do grupo (Ex: 0 para inativo, 1 para ativo).</td></tr>
+                          <tr><td><code>descricao</code></td><td><code>string</code></td><td>Sim</td><td>Descrição do grupo de item.</td></tr>
+                          <tr><td><code>exigeaprovacao</code></td><td><code>integer</code></td><td>Sim</td><td>Indica se o grupo exige aprovação (0 para não, 1 para sim).</td></tr>
+                      </tbody>
+                  </table>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Exemplo de Requisição (JavaScript - Fetch API):</h4>
+                  <pre><code class="language-javascript">
+async function inserirGrupoItem() {
+    const url = 'http://localhost:8000/inserir/grupoitem';
+    const data = {
+        "sistema":1,
+        "usuario":"kauik.becker",
+        "senha":"kauik123",
+        "status":1,
+        "descricao":"Capinha de celular",
+        "exigeaprovacao":0
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            console.log("Grupo de item inserido com sucesso:", result);
+        } else {
+            console.error("Erro ao inserir grupo de item:", result.mensagem || result.detail);
+        }
+        return result;
+    } catch (error) {
+        console.error("Erro ao conectar à API:", error);
+        throw error;
+    }
+}
+
+// inserirGrupoItem();
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Exemplo de Resposta (Sucesso):</h4>
+                  <pre><code class="language-json">
+{
+    "mensagem": "grupo registrado com sucesso no id 1",
+    "status": 1,
+    "id": 1
+}
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Exemplo de Resposta (Erro - Já Cadastrado):</h4>
+                  <pre><code class="language-json">
+{
+    "mensagem": "Grupo de item já cadastrado com id 1",
+    "status": 0,
+    "id": 1
+}
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Códigos de Status HTTP:</h4>
+                  <ul class="list-disc list-inside text-gray-700">
+                      <li><code class="bg-gray-200 px-1 rounded">200 OK</code>: Requisição bem-sucedida.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">400 Bad Request</code>: Campos obrigatórios ausentes ou inválidos.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">500 Internal Server Error</code>: Erro interno no servidor ou no banco de dados.</li>
+                  </ul>
+              </div>
+          </section>
+
+          <!-- Inserir Subgrupo de Item -->
+          <section id="inserir-subgrupoitem" class="mb-10 p-6 bg-white rounded-lg shadow-md">
+              <div class="mb-6">
+                  <h3 class="text-xl font-medium text-gray-700 mb-2">2.4. <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">POST</span> /inserir/subgrupoitem</h3>
+                  <p class="text-gray-700 mb-4">Insere um novo subgrupo de item associado a um grupo existente.</p>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Parâmetros da Requisição (Payload JSON):</h4>
+                  <table class="min-w-full bg-white rounded-lg">
+                      <thead>
+                          <tr>
+                              <th>Campo</th>
+                              <th>Tipo</th>
+                              <th>Obrigatório</th>
+                              <th>Descrição</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td><code>sistema</code></td><td><code>string</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
+                          <tr><td><code>usuario</code></td><td><code>string</code></td><td>Sim</td><td>Nome de usuário para autenticação.</td></tr>
+                          <tr><td><code>senha</code></td><td><code>string</code></td><td>Sim</td><td>Senha do usuário.</td></tr>
+                          <tr><td><code>status</code></td><td><code>integer</code></td><td>Sim</td><td>Status do subgrupo (Ex: 0 para inativo, 1 para ativo).</td></tr>
+                          <tr><td><code>descricao</code></td><td><code>string</code></td><td>Sim</td><td>Descrição do subgrupo de item.</td></tr>
+                          <tr><td><code>grupo</code></td><td><code>integer</code></td><td>Sim</td><td>ID do grupo de item ao qual este subgrupo pertence.</td></tr>
+                      </tbody>
+                  </table>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Exemplo de Requisição (JavaScript - Fetch API):</h4>
+                  <pre><code class="language-javascript">
+async function inserirSubgrupoItem() {
+    const url = 'http://localhost:8000/inserir/subgrupoitem';
+    const data = {
+        "sistema":1,
+        "usuario":"kauik.becker",
+        "senha":"kauik123",
+        "status":1,
+        "descricao":"Motorola lisa",
+        "grupo":102
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            console.log("Subgrupo de item inserido com sucesso:", result);
+        } else {
+            console.error("Erro ao inserir subgrupo de item:", result.mensagem || result.detail);
+        }
+        return result;
+    } catch (error) {
+        console.error("Erro ao conectar à API:", error);
+        throw error;
+    }
+}
+
+// inserirSubgrupoItem();
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Exemplo de Resposta (Sucesso):</h4>
+                  <pre><code class="language-json">
+{
+    "mensagem": "Subgrupo registrado com sucesso no id 10",
+    "status": 1,
+    "id": 10
+}
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Exemplo de Resposta (Erro - Já Cadastrado):</h4>
+                  <pre><code class="language-json">
+{
+    "mensagem": "Subgrupo de item já cadastrado com id 10",
+    "status": 0,
+    "id": 10
+}
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Códigos de Status HTTP:</h4>
+                  <ul class="list-disc list-inside text-gray-700">
+                      <li><code class="bg-gray-200 px-1 rounded">200 OK</code>: Requisição bem-sucedida.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">400 Bad Request</code>: Campos obrigatórios ausentes ou inválidos.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">500 Internal Server Error</code>: Erro interno no servidor ou no banco de dados.</li>
+                  </ul>
+              </div>
+          </section>
+
+          <!-- Inserir Item -->
+          <section id="inserir-item" class="mb-10 p-6 bg-white rounded-lg shadow-md">
+              <div class="mb-6">
+                  <h3 class="text-xl font-medium text-gray-700 mb-2">2.5. <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">POST</span> /inserir/item</h3>
+                  <p class="text-gray-700 mb-4">Insere um novo item no sistema, associado a um grupo e subgrupo.</p>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Parâmetros da Requisição (Payload JSON):</h4>
+                  <table class="min-w-full bg-white rounded-lg">
+                      <thead>
+                          <tr>
+                              <th>Campo</th>
+                              <th>Tipo</th>
+                              <th>Obrigatório</th>
+                              <th>Descrição</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td><code>sistema</code></td><td><code>string</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
+                          <tr><td><code>usuario</code></td><td><code>string</code></td><td>Sim</td><td>Nome de usuário para autenticação.</td></tr>
+                          <tr><td><code>senha</code></td><td><code>string</code></td><td>Sim</td><td>Senha do usuário.</td></tr>
+                          <tr><td><code>status</code></td><td><code>integer</code></td><td>Sim</td><td>Status do item (Ex: 0 para inativo, 1 para ativo).</td></tr>
+                          <tr><td><code>descricao</code></td><td><code>string</code></td><td>Sim</td><td>Descrição do item.</td></tr>
+                          <tr><td><code>grupo</code></td><td><code>integer</code> ou <code>boolean</code></td><td>Sim</td><td>ID do grupo de item ao qual o item pertence, ou `false` para cadastrar um novo grupo.</td></tr>
+                          <tr><td><code>grupoinfo</code></td><td><code>object</code></td><td>Opcional (se <code>grupo</code> for `false`)</td><td>Informações do novo grupo, se `grupo` for `false`.
+                            <ul class="list-disc list-inside ml-4">
+                                <li><code>status</code> (<code>integer</code>): Status do grupo.</li>
+                                <li><code>descricao</code> (<code>string</code>): Descrição do grupo.</li>
+                                <li><code>exigeaprovacao</code> (<code>integer</code>): Indica se o grupo exige aprovação (0 para não, 1 para sim).</li>
+                            </ul>
+                          </td></tr>
+                          <tr><td><code>subgrupo</code></td><td><code>integer</code> ou <code>boolean</code></td><td>Sim</td><td>ID do subgrupo de item ao qual o item pertence, ou `false` para cadastrar um novo subgrupo.</td></tr>
+                          <tr><td><code>subgrupoinfo</code></td><td><code>object</code></td><td>Opcional (se <code>subgrupo</code> for `false`)</td><td>Informações do novo subgrupo, se `subgrupo` for `false`.
+                            <ul class="list-disc list-inside ml-4">
+                                <li><code>status</code> (<code>integer</code>): Status do subgrupo.</li>
+                                <li><code>descricao</code> (<code>string</code>): Descrição do subgrupo.</li>
+                            </ul>
+                          </td></tr>
+                          <tr><td><code>tipovalidade</code></td><td><code>integer</code></td><td>Sim</td><td>Tipo de validade (0 para sem validade, 1 para DIAS, 2 para MESES, 3 para ANOS).</td></tr>
+                          <tr><td><code>validade</code></td><td><code>string</code> ou <code>integer</code></td><td>Sim (se <code>tipovalidade</code> for diferente de 0)</td><td>Valor da validade (vazio para sem validade, inteiro para dias/meses/anos).</td></tr>
+                          <tr><td><code>temgarantia</code></td><td><code>integer</code></td><td>Sim</td><td>Indica se o item tem garantia (0 para não, 1 para sim).</td></tr>
+                          <tr><td><code>garantia</code></td><td><code>string</code> ou <code>integer</code></td><td>Sim (se <code>temgarantia</code> for 1)</td><td>Duração da garantia (vazio para sem garantia, inteiro para dias/meses/anos).</td></tr>
+                      </tbody>
+                  </table>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Exemplo de Requisição (JavaScript - Fetch API):</h4>
+                  <pre><code class="language-javascript">
+async function inserirItem() {
+    const url = 'http://localhost:8000/inserir/item';
+    const data = {
+        "sistema": 1,
+        "usuario": "kauik.becker",
+        "senha": "kauik123",
+        "status": 1,
+        "descricao": "Samsung preta lisa s21 FE",
+        "grupo": 102, // FALSE PARA CADASTRAR GRUPO
+        "grupoinfo": { // PREENCHE SOMENTE SE NÃO TIVER GRUPO
+            "status":1,
+            "descricao":"Capinha de celular",
+            "exigeaprovacao":0
+            },
+        "subgrupo": 101, // FALSE PARA CADASTRAR SUBGRUPO
+        "subgrupoinfo": { // PREENCHE SOMENTE SE NÃO TIVER SUBGRUPO
+            "status":1,
+            "descricao":"Samsung"
+            },
+        "tipovalidade": 0, // 0 PARA SEM VALIDADE - 1 PARA DIAS - 2 PARA MESES - 3 PARA ANOS
+        "validade": "", // VAZIO PARA NÃO TEM VALIDADE - INT PARA DIAS, MESES OU ANOS
+        "temgarantia": 1,  // 0 PARA NÃO TEM GARANTIA, 1 PARA DIA, 2 PARA MÊS, 3 PARA ANO
+        "garantia": 7 // VAZIO ("") PARA NÃO TEM GARANTIA, INT PARA DIAS, MESES OU ANOS
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            console.log("Item inserido com sucesso:", result);
+        } else {
+            console.error("Erro ao inserir item:", result.mensagem || result.detail);
+        }
+        return result;
+    } catch (error) {
+        console.error("Erro ao conectar à API:", error);
+        throw error;
+    }
+}
+
+// inserirItem();
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Exemplo de Resposta (Sucesso):</h4>
+                  <pre><code class="language-json">
+{
+    "mensagem": "Item registrado com sucesso no id 100",
+    "status": 1,
+    "id": 100
+}
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Códigos de Status HTTP:</h4>
+                  <ul class="list-disc list-inside text-gray-700">
+                      <li><code class="bg-gray-200 px-1 rounded">200 OK</code>: Requisição bem-sucedida.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">400 Bad Request</code>: Campos obrigatórios ausentes ou inválidos.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">500 Internal Server Error</code>: Erro interno no servidor ou no banco de dados.</li>
+                  </ul>
+              </div>
+          </section>
+
+          <!-- Listagem de Dados -->
+          <section id="listar-estoque" class="mb-10 p-6 bg-white rounded-lg shadow-md">
+              <h2 class="text-2xl font-semibold text-gray-800 mb-4">3. Listagem de Dados</h2>
+              <div class="mb-6">
+                  <h3 class="text-xl font-medium text-gray-700 mb-2">3.1. <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">POST</span> /lista/estoque</h3>
+                  <p class="text-gray-700 mb-4">Lista os itens do estoque com paginação.</p>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Parâmetros da Requisição (Payload JSON):</h4>
+                  <table class="min-w-full bg-white rounded-lg">
+                      <thead>
+                          <tr>
+                              <th>Campo</th>
+                              <th>Tipo</th>
+                              <th>Obrigatório</th>
+                              <th>Descrição</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td><code>sistema</code></td><td><code>string</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
+                          <tr><td><code>usuario</code></td><td><code>string</code></td><td>Sim</td><td>Nome de usuário para autenticação.</td></tr>
+                          <tr><td><code>senha</code></td><td><code>string</code></td><td>Sim</td><td>Senha do usuário.</td></tr>
+                          <tr><td><code>pagina</code></td><td><code>integer</code></td><td>Sim</td><td>Número da página para listar os resultados. Cada página contém 25 itens.</td></tr>
+                      </tbody>
+                  </table>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Exemplo de Requisição (JavaScript - Fetch API):</h4>
+                  <pre><code class="language-javascript">
+async function listarEstoque(pagina = 1) {
+    const url = 'http://localhost:8000/lista/estoque';
+    const data = {
+        "sistema": 1,
+        "usuario": "kauik.becker",
+        "senha": "kauik123",
+        "pagina":1
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            console.log("Lista de estoque:", result);
+        } else {
+            console.error("Erro ao listar estoque:", result.mensagem || result.detail);
+        }
+        return result;
+    } catch (error) {
+        console.error("Erro ao conectar à API:", error);
+        throw error;
+    }
+}
+
+// listarEstoque(1); // Lista a primeira página do estoque
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Exemplo de Resposta (Sucesso):</h4>
+                  <pre><code class="language-json">
+[
+    {
+        "nome item": "Smartphone Modelo X",
+        "nome subgrupo": "Smartphones",
+        "nome grupo": "Eletrônicos",
+        "ITEM id": 100,
+        "ESTOQUE": 50
+    },
+    {
+        "nome item": "Notebook Gamer",
+        "nome subgrupo": "Notebooks",
+        "nome grupo": "Eletrônicos",
+        "ITEM id": 101,
+        "ESTOQUE": 15
+    }
+]
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Códigos de Status HTTP:</h4>
+                  <ul class="list-disc list-inside text-gray-700">
+                      <li><code class="bg-gray-200 px-1 rounded">200 OK</code>: Requisição bem-sucedida.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">400 Bad Request</code>: Campos obrigatórios ausentes ou inválidos.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">500 Internal Server Error</code>: Erro interno no servidor ou no banco de dados.</li>
+                  </ul>
+              </div>
+          </section>
+
+          <!-- Listar Itens -->
+          <section id="listar-itens" class="mb-10 p-6 bg-white rounded-lg shadow-md">
+              <div class="mb-6">
+                  <h3 class="text-xl font-medium text-gray-700 mb-2">3.2. <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">POST</span> /lista/itens</h3>
+                  <p class="text-gray-700 mb-4">Lista os itens cadastrados com paginação e filtros opcionais por nome e status.</p>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Parâmetros da Requisição (Payload JSON):</h4>
+                  <table class="min-w-full bg-white rounded-lg">
+                      <thead>
+                          <tr>
+                              <th>Campo</th>
+                              <th>Tipo</th>
+                              <th>Obrigatório</th>
+                              <th>Descrição</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td><code>sistema</code></td><td><code>string</code></td><td>Sim</td><td>Identificador do sistema.</td></tr>
+                          <tr><td><code>usuario</code></td><td><code>string</code></td><td>Sim</td><td>Nome de usuário para autenticação.</td></tr>
+                          <tr><td><code>senha</code></td><td><code>string</code></td><td>Sim</td><td>Senha do usuário.</td></tr>
+                          <tr><td><code>pagina</code></td><td><code>integer</code></td><td>Sim</td><td>Número da página para listar os resultados. Cada página contém 30 itens.</td></tr>
+                          <tr><td><code>filtros</code></td><td><code>object</code> ou <code>boolean</code></td><td>Opcional</td><td>Objeto de filtros ou `false` para desabilitar filtros.
+                            <ul class="list-disc list-inside ml-4">
+                                <li><code>nome</code> (<code>string</code>): Texto para filtrar os itens pelo nome (descrição).</li>
+                                <li><code>id</code> (<code>integer</code>): ID do item para filtragem.</li>
+                                <li><code>grupo</code> (<code>string</code>): Nome do grupo para filtragem.</li>
+                                <li><code>subgrupo</code> (<code>string</code>): Nome do subgrupo para filtragem.</li>
+                                <li><code>status</code> (<code>integer</code>): Status do item para filtragem (apenas 0 ou 1).</li>
+                            </ul>
+                          </td></tr>
+                      </tbody>
+                  </table>
+
+                  <h4 class="text-lg font-medium text-gray-700 mb-2">Exemplo de Requisição (JavaScript - Fetch API):</h4>
+                  <pre><code class="language-javascript">
+async function listarItens(pagina = 1, filtros = false) {
+    const url = 'http://localhost:8000/lista/itens';
+    const data = {
+        "sistema": 1,
+        "usuario": "kauik.becker",
+        "senha": "kauik123",
+        "pagina":1,
+        "filtros": { // False para desabilitar filtros
+            "nome":"texto",
+            "id":123,
+            "grupo":"example_group",
+            "subgrupo":"example_subgroup",
+            "status":1
+        }
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            console.log("Lista de itens:", result);
+        } else {
+            console.error("Erro ao listar itens:", result.mensagem || result.detail);
+        }
+        return result;
+    } catch (error) {
+        console.error("Erro ao conectar à API:", error);
+        throw error;
+    }
+}
+
+// listarItens(1); // Lista a primeira página sem filtros
+// listarItens(1, { nome: 'Smartphone', status: 1 }); // Lista itens ativos com "Smartphone" no nome na primeira página
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Exemplo de Resposta (Sucesso):</h4>
+                  <pre><code class="language-json">
+[
+    {
+        "ID": 100,
+        "NOME": "Smartphone Modelo X",
+        "GRUPO": "Eletrônicos",
+        "SUBGRUPO": "Smartphones",
+        "TIPO_VALIDADE": 0,
+        "VALIDADE": null,
+        "TEM_GARANTIA": 1,
+        "GARANTIA": 12,
+        "STATUS": 1
+    },
+    {
+        "ID": 105,
+        "NOME": "Carregador Universal",
+        "GRUPO": "Acessórios",
+        "SUBGRUPO": "Carregadores",
+        "TIPO_VALIDADE": 0,
+        "VALIDADE": null,
+        "TEM_GARANTIA": 0,
+        "GARANTIA": 0,
+        "STATUS": 1
+    }
+]
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Exemplo de Resposta (Nenhum Item Encontrado):</h4>
+                  <pre><code class="language-json">
+{
+    "mensagem": "Nenhum item encontrado",
+    "status": 0
+}
+                  </code></pre>
+
+                  <h4 class="text-lg font-medium text-gray-700 mt-4 mb-2">Códigos de Status HTTP:</h4>
+                  <ul class="list-disc list-inside text-gray-700">
+                      <li><code class="bg-gray-200 px-1 rounded">200 OK</code>: Requisição bem-sucedida.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">400 Bad Request</code>: Campos obrigatórios ausentes ou inválidos.</li>
+                      <li><code class="bg-gray-200 px-1 rounded">500 Internal Server Error</code>: Erro interno no servidor ou no banco de dados.</li>
+                  </ul>
+              </div>
+          </section>
+
+          <section id="tratamento-erros" class="mb-10 p-6 bg-red-50 rounded-lg shadow-inner">
+              <h2 class="text-2xl font-semibold text-red-800 mb-4">4. Tratamento de Erros</h2>
+              <p class="text-gray-700 leading-relaxed">
+                  A API retorna códigos de status HTTP para indicar o resultado da requisição e um corpo de resposta JSON com uma mensagem (`mensagem`) e, em alguns casos, um status (`status`) ou detalhes (`detail`) adicionais.
+              </p>
+              <ul class="list-disc list-inside text-gray-700 mt-2">
+                  <li><code class="bg-gray-200 px-1 rounded">200 OK</code>: Indica que a requisição foi processada com sucesso. A resposta conterá os dados esperados ou uma mensagem de sucesso.</li>
+                  <li><code class="bg-gray-200 px-1 rounded">400 Bad Request</code>: Indica que a requisição não pôde ser entendida pelo servidor devido a sintaxe malformada ou parâmetros inválidos/ausentes. Verifique o payload JSON enviado.</li>
+                  <li><code class="bg-gray-200 px-1 rounded">401 Unauthorized</code>: (Potencialmente) Indica que a autenticação falhou ou não foi fornecida. Embora seus endpoints atuais retornem 200 com status 0 para falha de autenticação, é uma boa prática considerar 401 para o futuro.</li>
+                  <li><code class="bg-gray-200 px-1 rounded">500 Internal Server Error</code>: Indica um erro inesperado no servidor. Isso pode ocorrer devido a problemas no banco de dados, lógica interna da API ou outros problemas de infraestrutura.</li>
+              </ul>
+              <p class="text-gray-700 leading-relaxed mt-4">
+                  Sempre verifique a propriedade <code class="bg-gray-200 px-1 rounded">response.ok</code> no JavaScript após uma requisição `fetch` para determinar se a requisição HTTP foi bem-sucedida (status 2xx). Em seguida, inspecione o corpo da resposta JSON para mensagens específicas de erro da API.
+              </p>
+          </section>
+
+          <footer class="text-center text-gray-500 text-sm mt-10 pt-6 border-t border-gray-200">
+              <p>&copy; 2025 Documentação da API. Todos os direitos reservados.</p>
+          </footer>
+
+      </div>
+  </body>
+  </html>
