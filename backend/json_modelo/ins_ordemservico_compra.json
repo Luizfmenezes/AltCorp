@@ -1,0 +1,32 @@
+{
+    "sistema":1, // int obrigatório
+    "usuario":"kauik.becker", // string obrigatório
+    "senha":"kauik123", // string obrigatório
+    "status":1, // int obrigatório sempre 1 = ATIVO
+    "tipo":1, // int obrigatorio sempre 1 = VENDA DIRETA
+    "obs": "Teste observação", // string opcional se não for informado, será string vazia ("")
+    "solicitacaoservico":{ // objeto obrigatório
+        "status":2, // int obrigatorio sempre 2 = VENDIDO
+        "tipo":3, // int obrigatorio sempre 3 = VENDA DIRETA
+        "cliente": false, // int para cliente ja cadastrado, false para cadastrar cliente
+        "cliente_info":{ // PREENCHE SOMENTE SE NÃO TIVER CLIENTE
+            "tipo": 1, // int obrigatorio 1 = CPF, 2 = CNPJ
+            "nome":"Kauik Becker", // string Nome do cliente
+            "cpfcnpj":"12345678900", // string CPF ou CNPJ, string vazia PARA NÃO CADATRAR
+            "cep":"", // string CEP do cliente, string vazia PARA NÃO CADATRAR
+            "telefone":"11999999999", // string Telefone do cliente, string vazia PARA NÃO CADATRAR
+            "email":"" // string Email do cliente, string vazia PARA NÃO CADATRAR
+        },
+        "descricao":"Venda de produto", // string obrigatorio descrição da venda sempre "Venda de produto"
+        "margemlucro":20.6, // float obrigatorio 20,6% de margem de lucro
+        "itens":[ // array de objetos obrigatório
+            {
+                "item":100, // int obrigatório, id do item cadastrado
+                "quantidade":1, // int obrigatório, quantidade do item
+                "tipo":1 // int obrigatório, sempre 1 = venda
+            }
+        ]
+    }
+}
+
+

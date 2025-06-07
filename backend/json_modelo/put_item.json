@@ -1,0 +1,13 @@
+{
+    "sistema":1,
+    "usuario": "kauik.becker",
+    "senha": "kauik123",
+    "id": 103,
+    "descricao": "Ryzen 5600gt 4.2 GHz",
+    "grupo": false, // false para não alterar, int para alterar
+    "subgrupo": false, // false para não alterar, int para alterar
+    "tipovalidade": false, // false para não alterar, int para alterar
+    "validade": false, // false para não alterar, int para alterar
+    "temgarantia": false, // false para não alterar, int para alterar
+    "garantia": false // false para não alterar, int para alterar
+}

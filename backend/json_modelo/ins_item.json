@@ -1,0 +1,22 @@
+{
+    "sistema": 1, // int obrigatório
+    "usuario": "kauik.becker", // string obrigatório
+    "senha": "kauik123", // string obrigatório
+    "status": 1, // int obrigatório
+    "descricao": "Samsung preta lisa s21 FE", // string obrigatório
+    "grupo": 102, // int para grupo ja cadastrado, false para cadastrar grupo
+    "grupoinfo": { // PREENCHE SOMENTE SE NÃO TIVER GRUPO
+        "status":1, // 1 sempre
+        "descricao":"Capinha de celular", // string obrigatório caso grupo seja false
+        "exigeaprovacao":0 // int obrigatório caso grupo seja false
+        },
+    "subgrupo": 101, // int para subgrupo ja cadastrado, false para cadastrar subgrupo
+    "subgrupoinfo": { // PREENCHE SOMENTE SE NÃO TIVER SUBGRUPO
+        "status":1, // 1 sempre
+        "descricao":"Samsung" // string obrigatório caso subgrupo seja false
+        },
+    "tipovalidade": 0, // int para tipo de validade, 0 para não tem validade, 1 para dia, 2 para mês, 3 para ano
+    "validade": "", // int para validade, vazio para não tem validade
+    "temgarantia": 1,  // int 0 PARA NÃO TEM GARANTIA, 1 PARA DIA, 2 PARA MÊS, 3 PARA ANO
+    "garantia": 7 // int para garantia, vazio para não tem garantia
+}

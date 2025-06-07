@@ -29,3 +29,7 @@ def load_endpoints():
                 app.include_router(modulo.router)
 
 load_endpoints()
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)  # reload=True para desenvolvimento

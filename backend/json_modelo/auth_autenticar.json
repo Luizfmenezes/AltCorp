@@ -1,0 +1,5 @@
+{
+    "sistema": 1, // int obrigatório
+    "usuario": "kauik.becker", // string obrigatório
+    "senha": "kauik123" // string obrigatório
+}
