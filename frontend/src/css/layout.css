@@ -1,33 +1,36 @@
-/* frontend/layout.css */
+/* layout.css */
 
 /* Main application container */
 .app-container {
     width: 100%;
-    height: 100vh; /* Occupies full viewport height */
-    max-width: 1400px; /* Max width for desktops */
+    height: 100vh; /* Ocupa a altura total da viewport */
+    max-width: 1400px; /* Largura máxima para desktops */
     background-color: var(--card-bg);
     box-shadow: var(--shadow-medium);
-    display: flex;
-    flex-direction: column; /* Stacks elements for smaller screens */
-    overflow: hidden; /* Ensures content doesn't overflow */
+    display: flex; /* Agora, o app-container é um flex container */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    flex-direction: column; /* Pilha os elementos para telas menores (o padrão será ajustado em media queries) */
+    overflow: hidden; /* Garante que o conteúdo não transborde */
+    margin: 0 auto; /* Centraliza o container na página se for menor que 100% da largura */
 }
 
 /* Dashboard Content Area (sidebar + main content) */
 .dashboard-content-area {
     display: flex;
-    flex: 1; /* Occupies remaining vertical space */
+    flex: 1; /* Ocupa o espaço vertical restante */
     width: 100%;
-    overflow: hidden; /* Ensures internal content doesn't overflow */
+    overflow: hidden; /* Garante que o conteúdo interno não transborde */
 }
 
 /* Main Content */
 .main-content {
-    flex: 1; /* Occupies remaining horizontal space */
-    padding: 20px;
-    overflow-y: auto; /* Allows scrolling in main content */
+    flex: 1; /* Ocupa o espaço horizontal restante */
+    padding: 30px; /* Aumenta o padding para dar mais respiro ao conteúdo */
+    overflow-y: auto; /* Permite rolagem no conteúdo principal */
     background-color: var(--background-light);
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centers content horizontally */
-    justify-content: flex-start; /* Aligns content to the top */
+    align-items: center; /* Centraliza o conteúdo horizontalmente, se necessário */
+    justify-content: flex-start; /* Alinha o conteúdo ao topo */
 }

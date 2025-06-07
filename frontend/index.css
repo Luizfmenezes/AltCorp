@@ -1,7 +1,106 @@
-@import url('./src/css/animations.css');
-@import url('./src/css/base.css');
-@import url('./src/css/components.css');
-@import url('./src/css/layout.css');
-@import url('./src/css/pages.css');
-@import url('./src/css/responsive.css');
-@import url('./src/css/utilities.css');
+/* index.css */
+
+/*
+  * Importa todos os outros arquivos CSS para organização.
+  * Certifique-se de que o caminho está correto de acordo com a estrutura do seu projeto.
+  * Ex: se os CSS estão em 'src/css/', o caminho seria './src/css/base.css'
+  */
+  @import url('./src/css/animations.css');
+  @import url('./src/css/base.css');
+  @import url('./src/css/components.css');
+  @import url('./src/css/layout.css');
+  @import url('./src/css/pages.css');
+  @import url('./src/css/responsive.css');
+  @import url('./src/css/utilities.css');
+  
+  
+  /*
+    * O .app-container é o elemento raiz que gerencia as telas (login, dashboard).
+    * Ele deve ocupar 100% da viewport e centralizar o conteúdo.
+    */
+  .app-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex; /* Define um contexto flexível */
+      justify-content: center; /* Centraliza horizontalmente os itens flexíveis */
+      align-items: center; /* Centraliza verticalmente os itens flexíveis */
+      overflow: hidden; /* Evita barras de rolagem no container principal */
+      position: relative; /* Necessário para posicionar elementos filhos, se houver, como modais */
+      background-color: var(--background-light); /* Cor de fundo geral, pode ser alterada para o login */
+  }
+  
+  /*
+    * A tela de login (login-screen) é um filho direto de .app-container
+    * e precisa se comportar como uma tela cheia, com seu próprio fundo gradiente
+    * e centralizando o card de login.
+    */
+  .login-screen {
+      width: 100%; /* Ocupa 100% da largura do app-container */
+      height: 100%; /* Ocupa 100% da altura do app-container */
+      display: flex; /* Torna a tela de login flexível para centralizar o card */
+      justify-content: center; /* Centraliza o card de login horizontalmente */
+      align-items: center; /* Centraliza o card de login verticalmente */
+      background: linear-gradient(135deg, var(--primary-color) 0%, #4a148c 100%); /* Fundo gradiente */
+      color: var(--text-light); /* Cor do texto no login screen */
+      position: absolute; /* Posição absoluta para cobrir todo o app-container */
+      top: 0;
+      left: 0;
+      z-index: 100; /* Garante que esteja acima de outros elementos do dashboard, se visível */
+      transition: opacity 0.5s ease-in-out; /* Transição suave para esconder/mostrar */
+  }
+  
+  /*
+    * A classe .screen é usada para alternar a visibilidade entre o login e o dashboard.
+    * O .app-container sempre terá uma .screen.active e uma .screen.hidden.
+    */
+  .screen {
+      width: 100%;
+      height: 100%;
+      /* O display: flex é definido em .login-screen e .dashboard-screen para evitar conflitos */
+      /* Removido display: flex, justify-content, align-items que estavam aqui e causavam o bug */
+      transition: opacity 0.3s ease-in-out;
+  }
+  
+  .screen.hidden {
+      display: none;
+      opacity: 0;
+      pointer-events: none; /* Prevents interactions when hidden */
+  }
+  
+  .screen.active {
+      display: flex; /* Permite que a tela ativa use flexbox para seu próprio layout */
+      opacity: 1;
+      pointer-events: auto; /* Allows interactions when active */
+  }
+  s
+  /*
+    * O dashboard-screen também precisa de display: flex para organizar sua sidebar e main-content.
+    */
+  .dashboard-screen {
+      display: flex;
+      flex-direction: column; /* Organiza header e content-area em coluna */
+      width: 100%;
+      height: 100%;
+      position: absolute; /* Também absoluto para cobrir o app-container */
+      top: 0;
+      left: 0;
+      z-index: 90; /* Z-index menor que o login-screen */
+  }
+  
+  /*
+    * Styles for specific elements on the login screen
+    */
+  .login-card {
+      background-color: var(--card-bg);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px var(--shadow-medium);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      color: var(--text-dark);
+      animation: fadeIn 0.8s ease-out;
+  }
+  
+  /* ... (O restante do seu index.css original deve permanecer aqui.
+        Certifique-se de que não há regras conflitantes que sobrescrevam o .app-container ou .screen) */

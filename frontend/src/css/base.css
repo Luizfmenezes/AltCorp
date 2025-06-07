@@ -1,4 +1,4 @@
-/* frontend/base.css */
+/* base.css */
 
 /* CSS Variables for colors and sizes */
 :root {
@@ -27,9 +27,25 @@ body {
     line-height: 1.6;
     color: var(--text-dark);
     background-color: var(--background-light);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Ensures body takes full viewport height */
-    overflow: hidden; /* Prevents unnecessary body scroll */
+    /* Remove 'display: flex', 'justify-content', 'align-items' e 'height: 100vh' do body aqui. */
+    /* Estas propriedades serão movidas para o .app-container para não interferir com a tela de login. */
+    overflow-x: hidden; /* Evita rolagem horizontal */
 }
+
+/*
+  * Este trecho de código remove o 'outline' padrão que navegadores aplicam a elementos focados.
+  * Embora útil para acessibilidade, muitas vezes designers optam por remover e então
+  * reimplementar um estilo de foco mais customizado para manter a identidade visual.
+  * Se a acessibilidade for uma preocupação primordial, considere adicionar um 'outline'
+  * ou 'box-shadow' customizado para estados de foco.
+  */
+:focus {
+    outline: none; /* Remove a borda de foco padrão para todos os elementos */
+}
+
+/* Estilos para o corpo da página */
+html, body {
+    height: 100%; /* Garante que body e html ocupem 100% da altura da viewport */
+}
+
+/* Adicione aqui qualquer outra regra base que você já tinha no seu base.css */

@@ -1,27 +1,11 @@
 // js/modules/auth.js
-
 import * as elements from './domElements.js';
 import * as state from './state.js';
 import * as ui from './ui.js';
 import { authenticateUser } from './api.js';
-// Correção aqui: para ir de js/modules/ para js/main.js, precisa de '../'
 import { initializeDashboard } from '../main.js';
 
-// NOVA FUNÇÃO A SER ADICIONADA E EXPORTADA
-export function initializeAuthEventListeners() {
-    // Adicione aqui os event listeners relacionados à autenticação
-    // Por exemplo, para o formulário de login:
-    if (elements.loginForm) { // Verifica se o formulário existe no DOM
-        elements.loginForm.addEventListener('submit', handleLogin);
-    }
-    // Adicione outros listeners de autenticação se necessário (ex: botão de logout)
-    if (elements.logoutButton) {
-        elements.logoutButton.addEventListener('click', handleLogout);
-    }
-    console.log("Event listeners de autenticação inicializados.");
-}
-
-export async function handleLogin(event) {
+async function handleLogin(event) {
     event.preventDefault();
     elements.loginButton.disabled = true;
     elements.loginButton.textContent = 'Entrando...';
@@ -46,18 +30,17 @@ export async function handleLogin(event) {
     }
 }
 
-export function handleLogout() {
+function handleLogout() {
     state.clearUserSession();
-    // Correção: Usar 'login-screen' com hífen
-    ui.showScreen('login-screen'); // Assegura que o login screen seja exibido
+    ui.showScreen(elements.loginScreen, elements.dashboardScreen);
     ui.showMessage('Você foi desconectado.', 'success');
 }
 
-export function checkUserRoleAndRedirect() {
-    if (state.getUserName()) {
-        initializeDashboard();
-    } else {
-        // Correção: Usar 'login-screen' com hífen
-        ui.showScreen('login-screen');
+export function initializeAuthEventListeners() {
+    if (elements.loginForm) {
+        elements.loginForm.addEventListener('submit', handleLogin);
+    }
+    if (elements.logoutButton) {
+        elements.logoutButton.addEventListener('click', handleLogout);
     }
 }
