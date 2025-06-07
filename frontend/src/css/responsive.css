@@ -1,0 +1,93 @@
+/* frontend/responsive.css */
+
+/* Media Queries for Responsiveness */
+@media (min-width: 768px) {
+    .app-container {
+        flex-direction: row; /* On larger screens, places sidebar and content side-by-side */
+    }
+
+    .login-card {
+        padding: 50px;
+    }
+
+    .dashboard-header .menu-toggle-button {
+        display: none; /* Hides menu button on larger screens */
+    }
+
+    .dashboard-content-area {
+        flex-direction: row; /* Ensures sidebar and main content are side-by-side */
+    }
+
+    .sidebar.fixed {
+        display: flex; /* Ensures fixed sidebar is displayed */
+    }
+
+    .sidebar.mobile-drawer {
+        display: none; /* Hides mobile drawer on larger screens */
+    }
+
+    .main-content {
+        padding: 30px;
+    }
+
+    .welcome-dashboard-content {
+        flex-direction: row; /* Places sections side-by-side */
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+
+    .welcome-section {
+        flex: 1;
+        max-width: 50%;
+    }
+
+    .dashboard-info-area {
+        flex: 1;
+        flex-wrap: nowrap; /* Prevents cards from wrapping */
+        justify-content: space-between;
+    }
+
+    .info-card {
+        flex: 1;
+        max-width: 48%; /* Two columns */
+    }
+}
+
+@media (max-width: 767px) {
+    .dashboard-header .menu-toggle-button {
+        display: block; /* Shows menu button on smaller screens */
+    }
+
+    .sidebar.fixed {
+        display: none; /* Hides fixed sidebar on smaller screens */
+    }
+
+    .sidebar.mobile-drawer {
+        display: flex; /* Shows mobile drawer */
+    }
+
+    .header-left h1 {
+        font-size: 1.5em;
+        margin-left: 0; /* Removes margin */
+    }
+
+    .header-right span {
+        display: none; /* Hides username to save space */
+    }
+
+    .welcome-dashboard-content {
+        flex-direction: column; /* Stacks sections */
+    }
+
+    .welcome-section, .dashboard-info-area {
+        max-width: 100%;
+    }
+
+    .info-card {
+        min-width: 100%; /* Occupies full width */
+    }
+
+    .integration-settings-container {
+        padding: 15px;
+    }
+}

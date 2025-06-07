@@ -1,0 +1,464 @@
+/* frontend/pages.css */
+
+/* General Screen Styles */
+.screen {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease-in-out; /* Smooth transition to hide/show */
+}
+
+.screen.hidden {
+    display: none;
+    opacity: 0;
+    pointer-events: none; /* Prevents interactions when hidden */
+}
+
+.screen.active {
+    display: flex; /* Ensures active screen is displayed */
+    opacity: 1;
+    pointer-events: auto; /* Allows interactions when active */
+}
+
+/* Login Screen Styles */
+.login-screen {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #4a148c 100%); /* Background gradient */
+    color: var(--text-light);
+}
+
+.login-card {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px var(--shadow-medium);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    color: var(--text-dark);
+    animation: fadeIn 0.8s ease-out; /* Entry animation */
+}
+
+.erp-logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* Makes image circular */
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.login-card h2 {
+    margin-bottom: 30px;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 2em;
+}
+
+.login-card button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+.login-card button:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(0, 123, 255, 0.4);
+}
+
+.login-card button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 123, 255, 0.2);
+}
+
+.login-card button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.login-card a {
+    display: block;
+    margin-top: 20px;
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 0.95em;
+    transition: color 0.3s ease;
+}
+
+.login-card a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+/* Dashboard Screen Styles */
+.dashboard-screen {
+    flex-direction: column; /* Ensures header, sidebar, and main content stack */
+    height: 100%;
+    justify-content: flex-start; /* Aligns content to the top */
+    align-items: stretch; /* Stretches content to fill width */
+}
+
+.dashboard-header {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px var(--shadow-medium);
+    z-index: 1000; /* Ensures header is above other elements */
+    width: 100%; /* Occupies full width */
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-left h1 {
+    font-size: 1.8em;
+    font-weight: 600;
+    margin-left: 15px; /* Space between menu button and title */
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-right span {
+    margin-right: 15px;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.user-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: var(--sidebar-bg);
+    width: 280px; /* Fixed width for sidebar */
+    box-shadow: 2px 0 10px var(--shadow-light);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out;
+    overflow-y: auto; /* Allows scrolling if content is taller than height */
+    flex-shrink: 0; /* Prevents sidebar from shrinking */
+}
+
+.sidebar.fixed {
+    /* Styles for fixed sidebar on larger screens */
+    position: relative; /* Returns to normal document flow */
+    height: auto; /* Automatic height based on content */
+}
+
+.sidebar.mobile-drawer {
+    position: fixed; /* Fixes sidebar to viewport */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Occupies full viewport height */
+    transform: translateX(-100%); /* Hides sidebar to the left */
+    z-index: 1100; /* Above overlay */
+}
+
+.sidebar.mobile-drawer.active {
+    transform: translateX(0); /* Shows sidebar */
+}
+
+.drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050; /* Between header and sidebar */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.drawer-overlay.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.drawer-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+.sidebar-header {
+    padding: 20px;
+    background-color: var(--sidebar-bg);
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.user-avatar {
+    width: 80px;
+    height: 80px;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    box-shadow: 0 2px 5px var(--shadow-light);
+}
+
+.user-avatar i {
+    font-size: 3em;
+    color: var(--text-light);
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav li {
+    margin-bottom: 5px;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 1.05em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 8px; /* Rounded corners */
+    margin: 0 10px; /* Side margin */
+}
+
+.sidebar-nav a i {
+    margin-right: 15px;
+    font-size: 1.3em;
+    color: var(--primary-color); /* Icons with primary color */
+}
+
+.sidebar-nav a:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Slight highlight on hover */
+    color: var(--primary-color);
+}
+
+.sidebar-nav a.active {
+    background-color: var(--card-bg); /* White background for active item */
+    color: var(--primary-color);
+    font-weight: 600;
+    box-shadow: 0 1px 5px var(--shadow-light);
+}
+
+/* Submenus (ExpansionTile-like) */
+.sidebar-nav .has-submenu {
+    margin-bottom: 5px;
+}
+
+.sidebar-nav .submenu-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 15px; /* Space for arrow */
+    font-weight: 500;
+}
+
+.sidebar-nav .submenu-toggle .arrow {
+    transition: transform 0.3s ease;
+}
+
+.sidebar-nav .submenu-toggle.expanded .arrow {
+    transform: rotate(180deg);
+}
+
+.sidebar-nav .submenu {
+    list-style: none;
+    max-height: 0; /* Starts hidden */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: rgba(0, 0, 0, 0.02); /* Slightly different background for submenus */
+    border-radius: 8px;
+    margin: 5px 10px 0 10px;
+}
+
+.sidebar-nav .submenu.expanded {
+    max-height: 500px; /* Large enough value to expand */
+}
+
+.sidebar-nav .submenu li a {
+    padding-left: 50px; /* Indents sub-items */
+    font-size: 0.95em;
+    color: var(--text-dark);
+}
+
+.sidebar-nav .submenu li a:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.sidebar-nav .submenu li a.active {
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    font-weight: 600;
+    box-shadow: none; /* Removes shadow from active sub-items */
+}
+
+/* Content Screen */
+.content-screen {
+    width: 100%;
+    max-width: 1000px; /* Max width for content */
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    margin-bottom: 20px; /* Space between cards */
+    animation: fadeIn 0.5s ease-out; /* Entry animation */
+}
+
+.content-screen.hidden {
+    display: none;
+}
+
+.content-placeholder {
+    text-align: center;
+    padding: 50px;
+    color: #999;
+}
+
+.content-placeholder i {
+    font-size: 4em;
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+.content-placeholder h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #777;
+}
+
+/* Welcome Dashboard Content (similar to Flutter) */
+.welcome-dashboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%; /* Occupies full height of content-screen */
+}
+
+.welcome-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.welcome-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome-message i {
+    font-size: 6em;
+    color: #64b5f6; /* Light blue color */
+    margin-bottom: 20px;
+    animation: waveHand 2s infinite; /* Waving hand animation */
+}
+
+.welcome-message h2 {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+.welcome-message p {
+    font-size: 1.1em;
+    color: #666;
+    max-width: 600px;
+}
+
+.dashboard-info-area {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap */
+    gap: 20px;
+    flex: 2; /* Occupies more space */
+    justify-content: center;
+    align-items: stretch; /* Ensures cards have the same height */
+}
+
+/* Integration Screen Styles */
+.integration-settings-container {
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    width: 100%;
+    max-width: 600px; /* Max width for form */
+    margin: 20px auto; /* Centers the form */
+}
+
+.integration-settings-container h2 {
+    font-size: 2em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.integration-settings-container .section-description {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+}
+
+.integration-settings-container .input-group {
+    margin-bottom: 25px;
+}
+
+.integration-settings-container .input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.integration-settings-container .input-group input {
+    width: 100%;
+    padding: 12px 12px 12px 50px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.integration-settings-container .input-group input:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+.integration-settings-container .input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    font-size: 1.2em;
+}
