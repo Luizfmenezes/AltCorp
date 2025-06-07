@@ -191,9 +191,7 @@ class DashboardController {
     }
 
     handleSidebarNavigation(event) {
-        // REMOVA OU COMENTE A LINHA ABAIXO:
-        // event.preventDefault(); // Esta linha causa o erro quando 'event' não é um evento DOM real
-
+        // Removido event.preventDefault() daqui pois não é um evento DOM real quando chamado via handleLoginSuccess
         const screenKey = event.currentTarget.dataset.screenKey;
         const activatedContentId = this.dashboardView.showContentScreen(screenKey);
         this.dashboardView.updateSidebarSelection(screenKey);
@@ -209,7 +207,7 @@ class DashboardController {
     }
 
     handleSubmenuToggle(event) {
-        event.preventDefault();
+        event.preventDefault(); // Mantenha este preventDefault, pois ele é chamado por um evento de clique real
         const parentLi = event.currentTarget.closest('li');
         const submenu = parentLi.querySelector('.submenu');
         if (submenu) {
