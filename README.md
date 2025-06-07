@@ -1,17 +1,3 @@
 # AltCorp
-ad
-a
 
-aa
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+ABCDEFGHIJKLMNOPQRSTUVWXYZ 2
