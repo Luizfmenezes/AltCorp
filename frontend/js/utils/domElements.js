@@ -1,43 +1,35 @@
 // js/utils/domElements.js
 
 export const DOMElements = {
-    // Telas principais
-    loginScreen: document.getElementById('login-screen'),
-    dashboardScreen: document.getElementById('dashboard-screen'),
+    // ... (Seus elementos existentes) ...
 
-    // Elementos da tela de login
-    loginForm: document.getElementById('login-form'),
-    usernameInput: document.getElementById('username'),
-    passwordInput: document.getElementById('password'),
-    loginButton: document.getElementById('login-button'),
-    messageBox: document.getElementById('message-box'),
+    // --- NOVOS ELEMENTOS PARA CADASTRO DE ITEM DE ESTOQUE ---
+    estoqueCadastroItemForm: document.getElementById('estoque-cadastro-item-form'),
+    estoqueCadastroItemSistemaInput: document.getElementById('sistema-estoque'),
+    estoqueCadastroItemUsuarioInput: document.getElementById('usuario-estoque'),
 
-    // Elementos do dashboard
-    loggedInUserSpan: document.getElementById('logged-in-user'),
-    logoutButton: document.getElementById('logout-button'),
-    userOptionsButton: document.getElementById('user-options-button'),
-    menuToggleButton: document.getElementById('menu-toggle'),
-    fixedSidebar: document.getElementById('fixed-sidebar'),
-    mobileDrawer: document.getElementById('mobile-drawer'),
-    drawerOverlay: document.getElementById('drawer-overlay'),
-    mainContent: document.getElementById('main-content'),
+    // NOVOS CAMPOS ESPECÍFICOS PARA O ITEM
+    estoqueCadastroItemIdInput: document.getElementById('item-id'), // Novo ID para o campo ID
+    estoqueCadastroItemNameInput: document.getElementById('item-name'), // Novo ID para o campo Name
+    estoqueCadastroItemGpInput: document.getElementById('item-gp'), // Novo ID para o campo GP
+    estoqueCadastroItemSgpInput: document.getElementById('item-sgp'), // Novo ID para o campo SGP
+    estoqueCadastroItemValorInput: document.getElementById('item-valor'), // Novo ID para o campo Valor
+    estoqueCadastroItemStatusInput: document.getElementById('item-status'), // Novo ID para o campo Status
 
-    // Itens de menu específicos
-    integrationSettingsMenuItem: document.getElementById('integration-settings-menu-item'),
-    integrationSettingsMenuItemMobile: document.getElementById('integration-settings-menu-item-mobile'),
+    // CAMPOS ANTERIORES (manter se ainda necessários)
+    estoqueCadastroItemCodigoInput: document.getElementById('codigo'),
+    estoqueCadastroItemDescricaoInput: document.getElementById('descricao'),
+    estoqueCadastroItemUnidadeInput: document.getElementById('unidade'),
+    estoqueCadastroItemGrupoInput: document.getElementById('grupo'),
+    estoqueCadastroItemPrecoInput: document.getElementById('preco'),
+    estoqueCadastroItemEstoqueInput: document.getElementById('estoque'),
+    estoqueCadastroItemObservacaoInput: document.getElementById('observacao'),
 
-    // Elementos da tela de integração
-    integrationSettingsForm: document.getElementById('integration-settings-form'),
-    systemIdInput: document.getElementById('system-id'),
-    apiEndpointInput: document.getElementById('api-endpoint'),
-    portInput: document.getElementById('port'),
-    companyNameInput: document.getElementById('company-name'),
-    saveSettingsButton: document.getElementById('save-settings-button'),
-    resetSettingsButton: document.getElementById('reset-settings-button'),
-    integrationMessageBox: document.getElementById('integration-message-box'),
+    estoqueCadastroItemSubmitButton: document.getElementById('submit-item-button'),
+    estoqueCadastroItemLoadingIndicator: document.getElementById('loading-item-indicator'),
+    estoqueCadastroItemApiResponse: document.getElementById('api-item-response'),
+    estoqueCadastroItemResponseMessage: document.getElementById('response-item-message'),
+    estoqueCadastroItemResponseId: document.getElementById('response-item-id'),
 
-    // Elementos de diálogo (serão criados dinamicamente, mas os botões internos são IDs)
-    dialogCancelButton: 'dialog-cancel-button', // ID para referência interna
-    dialogConfirmButton: 'dialog-confirm-button', // ID para referência interna
-    dialogOkButton: 'dialog-ok-button', // ID para referência interna
+    // ... (Seus elementos de diálogo existentes) ...
 };

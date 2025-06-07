@@ -1,314 +1,33 @@
-/* public/css/layout.css */
+/* frontend/layout.css */
 
-/* Container principal da aplicação */
+/* Main application container */
 .app-container {
     width: 100%;
-    height: 100vh; /* Ocupa a altura total da viewport */
-    max-width: 1400px; /* Largura máxima para desktops */
+    height: 100vh; /* Occupies full viewport height */
+    max-width: 1400px; /* Max width for desktops */
     background-color: var(--card-bg);
     box-shadow: var(--shadow-medium);
     display: flex;
-    flex-direction: column; /* Para telas menores, empilha os elementos */
-    overflow: hidden; /* Garante que o conteúdo não transborde */
+    flex-direction: column; /* Stacks elements for smaller screens */
+    overflow: hidden; /* Ensures content doesn't overflow */
 }
 
-/* Estilos gerais das telas */
-.screen {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.3s ease-in-out; /* Transição suave para ocultar/mostrar */
-}
-
-.screen.hidden {
-    display: none;
-    opacity: 0;
-    pointer-events: none; /* Impede interações quando oculto */
-}
-
-.screen.active {
-    display: flex; /* Garante que a tela ativa seja exibida */
-    opacity: 1;
-    pointer-events: auto; /* Permite interações quando ativo */
-}
-
-/* Estilos da Tela de Login */
-.login-screen {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #4a148c 100%); /* Gradiente de fundo */
-    color: var(--text-light);
-}
-
-/* Estilos da Tela de Dashboard */
-.dashboard-screen {
-    flex-direction: column; /* Garante que header, sidebar e main content se empilhem */
-    height: 100%;
-    justify-content: flex-start; /* Alinha o conteúdo ao topo */
-    align-items: stretch; /* Estende o conteúdo para preencher a largura */
-}
-
-.dashboard-header {
-    background-color: var(--primary-color);
-    color: var(--text-light);
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 10px var(--shadow-medium);
-    z-index: 1000; /* Garante que o header fique acima de outros elementos */
-    width: 100%; /* Ocupa a largura total */
-}
-
-.header-left {
-    display: flex;
-    align-items: center;
-}
-
-.header-left h1 {
-    font-size: 1.8em;
-    font-weight: 600;
-    margin-left: 15px; /* Espaço entre o botão de menu e o título */
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-}
-
-.header-right span {
-    margin-right: 15px;
-    font-size: 1.1em;
-    font-weight: 500;
-}
-
-.user-actions {
-    display: flex;
-    gap: 10px;
-}
-
-/* Área de Conteúdo do Dashboard (barra lateral + conteúdo principal) */
+/* Dashboard Content Area (sidebar + main content) */
 .dashboard-content-area {
     display: flex;
-    flex: 1; /* Ocupa o espaço restante verticalmente */
+    flex: 1; /* Occupies remaining vertical space */
     width: 100%;
-    overflow: hidden; /* Garante que o conteúdo interno não transborde */
+    overflow: hidden; /* Ensures internal content doesn't overflow */
 }
 
-/* Barra Lateral (Sidebar) */
-.sidebar {
-    background-color: var(--sidebar-bg);
-    width: 280px; /* Largura fixa para a sidebar */
-    box-shadow: 2px 0 10px var(--shadow-light);
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease-in-out;
-    overflow-y: auto; /* Permite scroll se o conteúdo for maior que a altura */
-    flex-shrink: 0; /* Impede que a sidebar encolha */
-}
-
-.sidebar.fixed {
-    /* Estilos para a sidebar fixa em telas maiores */
-    position: relative; /* Volta ao fluxo normal do documento */
-    height: auto; /* Altura automática baseada no conteúdo */
-}
-
-.sidebar.mobile-drawer {
-    position: fixed; /* Fixa a sidebar na viewport */
-    top: 0;
-    left: 0;
-    height: 100vh; /* Ocupa a altura total da viewport */
-    transform: translateX(-100%); /* Oculta a sidebar para a esquerda */
-    z-index: 1100; /* Acima do overlay */
-}
-
-.sidebar.mobile-drawer.active {
-    transform: translateX(0); /* Mostra a sidebar */
-}
-
-.drawer-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1050; /* Entre o header e a sidebar */
-    transition: opacity 0.3s ease-in-out;
-}
-
-.drawer-overlay.hidden {
-    display: none;
-    opacity: 0;
-}
-
-.drawer-overlay.active {
-    display: block;
-    opacity: 1;
-}
-
-.sidebar-header {
-    padding: 20px;
-    background-color: var(--sidebar-bg);
-    border-bottom: 1px solid var(--border-color);
-    text-align: center;
-}
-
-.sidebar-nav ul {
-    list-style: none;
-}
-
-.sidebar-nav li {
-    margin-bottom: 5px;
-}
-
-.sidebar-nav a {
-    display: flex;
-    align-items: center;
-    padding: 12px 20px;
-    color: var(--text-dark);
-    text-decoration: none;
-    font-size: 1.05em;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    border-radius: 8px; /* Cantos arredondados */
-    margin: 0 10px; /* Margem lateral */
-}
-
-.sidebar-nav a i {
-    margin-right: 15px;
-    font-size: 1.3em;
-    color: var(--primary-color); /* Ícones com a cor principal */
-}
-
-.sidebar-nav a:hover {
-    background-color: rgba(0, 0, 0, 0.05); /* Leve destaque ao passar o mouse */
-    color: var(--primary-color);
-}
-
-.sidebar-nav a.active {
-    background-color: var(--card-bg); /* Fundo branco para item ativo */
-    color: var(--primary-color);
-    font-weight: 600;
-    box-shadow: 0 1px 5px var(--shadow-light);
-}
-
-/* Submenus (ExpansionTile-like) */
-.sidebar-nav .has-submenu {
-    margin-bottom: 5px;
-}
-
-.sidebar-nav .submenu-toggle {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 15px; /* Espaço para a seta */
-    font-weight: 500;
-}
-
-.sidebar-nav .submenu-toggle .arrow {
-    transition: transform 0.3s ease;
-}
-
-.sidebar-nav .submenu-toggle.expanded .arrow {
-    transform: rotate(180deg);
-}
-
-.sidebar-nav .submenu {
-    list-style: none;
-    max-height: 0; /* Inicia fechado */
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-    padding-left: 20px; /* Recuo para subitens */
-}
-
-.sidebar-nav .submenu.expanded {
-    max-height: 500px; /* Altura suficiente para expandir (ajustar conforme necessário) */
-}
-
-.sidebar-nav .submenu li a {
-    padding: 10px 20px; /* Padding para subitens */
-    font-size: 0.95em;
-    margin: 0; /* Remove margem lateral */
-    border-radius: 0; /* Remove borda arredondada */
-}
-
-.sidebar-nav .submenu li a:hover {
-    background-color: rgba(0, 0, 0, 0.03); /* Mais sutil para subitens */
-}
-
-/* Conteúdo Principal */
+/* Main Content */
 .main-content {
-    flex: 1; /* Ocupa o espaço restante horizontalmente */
+    flex: 1; /* Occupies remaining horizontal space */
     padding: 20px;
+    overflow-y: auto; /* Allows scrolling in main content */
     background-color: var(--background-light);
-    overflow-y: auto; /* Permite scroll no conteúdo principal */
-    min-height: 100%; /* Garante que o conteúdo principal ocupe o espaço */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.content-screen {
-    width: 100%;
-    max-width: 1000px; /* Largura máxima para o conteúdo */
-    background-color: var(--card-bg);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: var(--shadow-light);
-    margin-bottom: 20px; /* Espaço entre as telas, se múltiplos forem exibidos */
-    display: none; /* Esconde por padrão, JS controla a visibilidade */
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.content-screen.active {
-    display: block; /* Garante que a tela ativa seja exibida */
-    opacity: 1;
-    transform: translateY(0);
-}
-
-
-/* Responsividade */
-@media (min-width: 768px) {
-    .dashboard-content-area {
-        flex-direction: row; /* Sidebar e Main Content lado a lado */
-    }
-
-    .dashboard-header .menu-toggle-button {
-        display: none; /* Oculta o botão de menu em telas maiores */
-    }
-
-    .sidebar.fixed {
-        display: flex; /* Mostra a sidebar fixa */
-    }
-
-    .sidebar.mobile-drawer {
-        display: none; /* Oculta o drawer móvel */
-    }
-
-    .main-content {
-        padding: 30px;
-    }
-}
-
-@media (max-width: 767px) {
-    .dashboard-header .menu-toggle-button {
-        display: block; /* Mostra o botão de menu em telas menores */
-    }
-
-    .sidebar.fixed {
-        display: none; /* Oculta a sidebar fixa em telas menores */
-    }
-
-    .sidebar.mobile-drawer {
-        display: flex; /* Mostra o drawer móvel */
-    }
-
-    .header-left h1 {
-        font-size: 1.5em;
-        margin-left: 0; /* Remove margem */
-    }
+    align-items: center; /* Centers content horizontally */
+    justify-content: flex-start; /* Aligns content to the top */
 }
