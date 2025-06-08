@@ -3,7 +3,6 @@
 body {
     font-family: sans-serif;
     margin: 0;
-    padding: 20px;
     background-color: #f0f2f5;
     display: flex;
     justify-content: center;
@@ -45,7 +44,7 @@ body {
 }
 
 .search-bar input:focus {
-    border-color: #6a5acd;
+    border-color: var(--primary-color);
 }
 
 .search-icon {
@@ -71,7 +70,7 @@ body {
 
 .filter-button {
     background-color: #f0f0f0;
-    color: #6a5acd;
+    color: var(--primary-color);
 }
 
 .filter-button:hover {
@@ -80,12 +79,12 @@ body {
 }
 
 .add-button {
-    background-color: #6a5acd;
+    background-color: var(--primary-color);
     color: white;
 }
 
 .add-button:hover {
-    background-color: #5d4a9f;
+    background-color: var(--accent-color);
     transform: translateY(-2px);
 }
 
@@ -153,11 +152,11 @@ body {
 }
 
 input:checked + .slider {
-    background-color: #6a5acd;
+    background-color: var(--primary-color);
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #6a5acd;
+    box-shadow: 0 0 1px var(--primary-color);
 }
 
 input:checked + .slider:before {
@@ -166,7 +165,7 @@ input:checked + .slider:before {
 
 /* Edit Icon */
 .edit-icon {
-    color: #6a5acd;
+    color: var(--primary-color);
     cursor: pointer;
     font-size: 1.1rem;
 }
@@ -229,7 +228,7 @@ input:checked + .slider:before {
 }
 
 .modal-inputs input:focus {
-    border-color: #6a5acd;
+    border-color: var(--primary-color);
 }
 
 .modal-product-preview-table {
@@ -287,11 +286,11 @@ input:checked + .slider:before {
 }
 
 .confirm-button {
-    background-color: #6a5acd;
+    background-color: var(--primary-color);
     color: white;
 }
 
 .confirm-button:hover {
-    background-color: #5d4a9f;
+    background-color: var(--accent-color);
     transform: translateY(-2px);
 }

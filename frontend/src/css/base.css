@@ -1,10 +1,8 @@
-/* base.css */
-
 /* CSS Variables for colors and sizes */
 :root {
-    --primary-color: #240092; /* Main color (dark blue) */
-    --secondary-color: #007bff; /* Blue for login buttons */
-    --accent-color: #0056b3; /* Darker blue for hover */
+    --primary-color: #456AFF; /* Main color (dark blue) */
+    --secondary-color: #456AFF; /* Blue for login buttons */
+    --accent-color: #2B55FF; /* Darker blue for hover */
     --background-light: #F4F6F8; /* General light background */
     --sidebar-bg: #EEEEEE; /* Sidebar background color */
     --text-dark: #333; /* Standard dark text */
@@ -32,13 +30,15 @@ body {
     overflow-x: hidden; /* Evita rolagem horizontal */
 }
 
-/*
-  * Este trecho de código remove o 'outline' padrão que navegadores aplicam a elementos focados.
-  * Embora útil para acessibilidade, muitas vezes designers optam por remover e então
-  * reimplementar um estilo de foco mais customizado para manter a identidade visual.
-  * Se a acessibilidade for uma preocupação primordial, considere adicionar um 'outline'
-  * ou 'box-shadow' customizado para estados de foco.
-  */
+/* Estilos para links */
+a {
+    color: var(--primary-color); /* Cor primária para links */
+    text-decoration: none; /* Remove o sublinhado padrão */
+}
+a:hover {
+    color: var(--accent-color); /* Cor de destaque ao passar o mouse */
+}
+
 :focus {
     outline: none; /* Remove a borda de foco padrão para todos os elementos */
 }
@@ -47,5 +47,3 @@ body {
 html, body {
     height: 100%; /* Garante que body e html ocupem 100% da altura da viewport */
 }
-
-/* Adicione aqui qualquer outra regra base que você já tinha no seu base.css */

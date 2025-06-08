@@ -1,10 +1,7 @@
-/* layout.css */
-
 /* Main application container */
 .app-container {
     width: 100%;
-    height: 100vh; /* Ocupa a altura total da viewport */
-    max-width: 1400px; /* Largura máxima para desktops */
+    height: 100%; /* Ocupa a altura total da viewport */
     background-color: var(--card-bg);
     box-shadow: var(--shadow-medium);
     display: flex; /* Agora, o app-container é um flex container */
