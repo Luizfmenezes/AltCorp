@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Itens da API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .loading, .error, .no-data {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        .loading {
+            color: #007bff;
+        }
+        .error {
+            color: #dc3545;
+        }
+        .no-data {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Itens Disponíveis</h1>
+        <div id="status-message" class="loading">Carregando itens...</div>
+        <table id="itens-table" style="display: none;"> <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Grupo</th>
+                    <th>Subgrupo</th>
+                    <th>Valor</th>
+                    </tr>
+            </thead>
+            <tbody>
+                </tbody>
+        </table>
+    </div>
+
+    <script>
+        async function listarItens(pagina = 1, filtros = {}) {
+            const url = 'http://kauikserver.ddns.net:19695/lista/itens';
+            const data = {
+                "sistema": 1,
+                "usuario": "kauik.becker",
+                "senha": "kauik123",
+                "pagina": pagina,
+                "filtros": filtros
+            };
+
+            console.log("Enviando requisição POST para:", url);
+            console.log("Com os dados:", JSON.stringify(data, null, 2));
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json(); 
+                
+                console.log("Resposta completa da API (HTTP Status):", response.status);
+                console.log("Resposta JSON da API:", result); 
+
+                if (response.ok) {
+                    console.log("Requisição bem-sucedida.");
+                } else {
+                    console.error("Erro na requisição. Mensagem da API:", result.mensagem || result.detail || "Erro desconhecido");
+                }
+                return result; // A API retorna o array diretamente
+            } catch (error) {
+                console.error("Erro ao conectar ou processar a API:", error);
+                throw error;
+            }
+        }
+
+        async function carregarItensNaPagina() {
+            const itensTableBody = document.querySelector('#itens-table tbody');
+            const statusMessage = document.getElementById('status-message');
+            
+            itensTableBody.innerHTML = ''; 
+            statusMessage.className = 'loading';
+            statusMessage.textContent = 'Carregando itens...';
+            document.getElementById('itens-table').style.display = 'none'; 
+
+            try {
+                // A API retorna um array direto, então `dadosApi` JÁ É o array de itens.
+                const itens = await listarItens(1); 
+                
+                if (itens && Array.isArray(itens) && itens.length > 0) {
+                    statusMessage.style.display = 'none'; 
+                    document.getElementById('itens-table').style.display = 'table'; 
+                    
+                    itens.forEach(item => {
+                        const row = itensTableBody.insertRow(); 
+                        
+                        // Use os nomes das propriedades exatamente como vêm da API (maiúsculas)
+                        row.insertCell().textContent = item.ID || 'N/A';
+                        row.insertCell().textContent = item.NOME || 'N/A';
+                        row.insertCell().textContent = item.GRUPO || 'N/A';
+                        row.insertCell().textContent = item.SUBGRUPO || 'N/A';
+                        row.insertCell().textContent = item.VALOR !== null ? item.VALOR : 'N/A'; 
+                        // Notei que VALOR pode ser null, então adicionei uma checagem.
+                    });
+                } else {
+                    statusMessage.className = 'no-data'; 
+                    statusMessage.textContent = 'Nenhum item encontrado ou dados vazios na resposta da API.';
+                    statusMessage.style.display = 'block';
+                    document.getElementById('itens-table').style.display = 'none';
+                }
+            } catch (error) {
+                statusMessage.className = 'error';
+                statusMessage.textContent = 'Erro ao carregar os itens. Verifique o console para mais detalhes.';
+                statusMessage.style.display = 'block';
+                document.getElementById('itens-table').style.display = 'none';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', carregarItensNaPagina);
+    </script>
+</body>
+</html>

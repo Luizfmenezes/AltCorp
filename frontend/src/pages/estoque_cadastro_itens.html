@@ -1,25 +1,139 @@
-<div class="dashboard-container">
-    <div class="header-dashboard">
-        <div class="search-bar">
-            <input type="text" id="productSearch" placeholder="Pesquise o nome ou ID produto">
-            <i class="fas fa-search search-icon"></i>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Estoque</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .dashboard-container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header-dashboard {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 8px;
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex-grow: 1;
+            padding: 0 5px;
+        }
+        .search-icon {
+            color: #888;
+            margin-right: 5px;
+        }
+        .filter-button, .add-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .filter-button:hover, .add-button:hover {
+            background-color: #0056b3;
+        }
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .loading, .error, .no-data {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        .loading {
+            color: #007bff;
+        }
+        .error {
+            color: #dc3545;
+        }
+        .no-data {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header-dashboard">
+            <div class="search-bar">
+                <input type="text" id="productSearch" placeholder="Pesquise o nome ou ID produto">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <button class="filter-button"><i class="ph ph-funnel icon-lg"></i> Filtrar</button>
+            <button class="add-button" id="openModalButton"><i class="ph ph-plus-circle"></i> Adicionar</button>
         </div>
-        <button class="filter-button"><i class="ph ph-funnel icon-lg"></i></i></button>
-        <button class="add-button" id="openModalButton"><i class="ph ph-plus-circle"></i></i> Adicionar</button>
+
+        <h1>Itens Disponíveis</h1>
+        <div id="status-message" class="loading">Carregando itens...</div>
+        <table id="itens-table" style="display: none;">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Grupo</th>
+                    <th>Subgrupo</th>
+                    <th>Valor</th>
+                    <th>Editar</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                </tbody>
+        </table>
     </div>
-    <table class="product-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Grupo</th>
-                <th>SubGrupo</th>
-                <th>Valor</th>
-                <th>Status</th>
-                <th>Editar</th>
-            </tr>
-        </thead>
-        <tbody id="productTableBody">
-        </tbody>
-    </table>
-</div>
+
+    </body>
+</html>
