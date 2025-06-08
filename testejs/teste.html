@@ -3,167 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Itens da API</title>
+    <title>Cadastro de Item</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
             background-color: #f4f4f4;
-            color: #333;
         }
         .container {
-            max-width: 900px;
-            margin: 0 auto;
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
         }
-        h1 {
-            color: #0056b3;
+        h2 {
             text-align: center;
-            margin-bottom: 20px;
+            color: #333;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-        }
-        th {
-            background-color: #007bff;
-            color: white;
+        label {
+            display: block;
+            margin-bottom: 5px;
             font-weight: bold;
         }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
-        tr:hover {
-            background-color: #ddd;
+        input[type="checkbox"] {
+            margin-right: 10px;
         }
-        .loading, .error, .no-data {
-            text-align: center;
-            font-size: 1.2em;
+        .checkbox-group {
+            margin-bottom: 15px;
+        }
+        .form-section {
+            border: 1px solid #eee;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+        }
+        .form-section h3 {
+            margin-top: 0;
+            color: #555;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #response-message {
             margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            display: none; /* Escondido por padrão */
         }
-        .loading {
-            color: #007bff;
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
         }
         .error {
-            color: #dc3545;
-        }
-        .no-data {
-            color: #6c757d;
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Itens Disponíveis</h1>
-        <div id="status-message" class="loading">Carregando itens...</div>
-        <table id="itens-table" style="display: none;"> <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Grupo</th>
-                    <th>Subgrupo</th>
-                    <th>Valor</th>
-                    </tr>
-            </thead>
-            <tbody>
-                </tbody>
-        </table>
+        <h2>Cadastro de Novo Item</h2>
+        <form id="itemForm">
+            <div class="form-section">
+                <h3>Dados de Autenticação e Básicos</h3>
+                <label for="sistema">Sistema:</label>
+                <input type="number" id="sistema" value="1" required>
+
+                <label for="usuario">Kauik.Becker</label>
+                <input type="text" id="usuario" value="kauik.becker" required>
+
+                <label for="senha">Senha:</label>
+                <input type="text" id="senha" value="senha123" required>
+
+                <label for="status">Status do Item:</label>
+                <select id="status" required>
+                    <option value="1">Ativo</option>
+                    <option value="0">Inativo</option>
+                </select>
+
+                <label for="descricaoItem">Descrição do Item:</label>
+                <input type="text" id="descricaoItem" placeholder="Ex: Teclado Mecânico RGB" required>
+            </div>
+
+            <div class="form-section">
+                <h3>Informações de Grupo</h3>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="novoGrupo" checked>
+                    <label for="novoGrupo">Cadastrar Novo Grupo?</label>
+                </div>
+
+                <div id="grupoExistente" style="display: none;">
+                    <label for="idGrupo">ID do Grupo Existente:</label>
+                    <input type="number" id="idGrupo" placeholder="Ex: 123">
+                </div>
+
+                <div id="novoGrupoInfo">
+                    <label for="descricaoGrupo">Descrição do Novo Grupo:</label>
+                    <input type="text" id="descricaoGrupo" placeholder="Ex: Periféricos">
+
+                    <label for="exigeAprovacao">Exige Aprovação:</label>
+                    <select id="exigeAprovacao" required>
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Informações de Subgrupo</h3>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="novoSubgrupo" checked>
+                    <label for="novoSubgrupo">Cadastrar Novo Subgrupo?</label>
+                </div>
+
+                <div id="subgrupoExistente" style="display: none;">
+                    <label for="idSubgrupo">ID do Subgrupo Existente:</label>
+                    <input type="number" id="idSubgrupo" placeholder="Ex: 456">
+                </div>
+
+                <div id="novoSubgrupoInfo">
+                    <label for="descricaoSubgrupo">Descrição do Novo Subgrupo:</label>
+                    <input type="text" id="descricaoSubgrupo" placeholder="Ex: Teclados">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Validade e Garantia</h3>
+                <label for="tipoValidade">Tipo de Validade:</label>
+                <select id="tipoValidade">
+                    <option value="0">Sem Validade</option>
+                    <option value="1">DIAS</option>
+                    <option value="2">MESES</option>
+                    <option value="3">ANOS</option>
+                </select>
+
+                <div id="validadeContainer" style="display: none;">
+                    <label for="validade">Valor da Validade:</label>
+                    <input type="number" id="validade" placeholder="Ex: 30">
+                </div>
+
+                <label for="temGarantia">Tem Garantia?</label>
+                <select id="temGarantia">
+                    <option value="0">Não</option>
+                    <option value="1">DIAS</option>
+                    <option value="2">MESES</option>
+                    <option value="3">ANOS</option>
+                </select>
+
+                <div id="garantiaContainer" style="display: none;">
+                    <label for="garantia">Duração da Garantia:</label>
+                    <input type="number" id="garantia" placeholder="Ex: 24">
+                </div>
+            </div>
+            
+            <button type="submit">Cadastrar Item</button>
+        </form>
+        <div id="response-message"></div>
     </div>
 
-    <script>
-        async function listarItens(pagina = 1, filtros = {}) {
-            const url = 'http://kauikserver.ddns.net:19695/lista/itens';
-            const data = {
-                "sistema": 1,
-                "usuario": "kauik.becker",
-                "senha": "kauik123",
-                "pagina": pagina,
-                "filtros": filtros
-            };
-
-            console.log("Enviando requisição POST para:", url);
-            console.log("Com os dados:", JSON.stringify(data, null, 2));
-
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                const result = await response.json(); 
-                
-                console.log("Resposta completa da API (HTTP Status):", response.status);
-                console.log("Resposta JSON da API:", result); 
-
-                if (response.ok) {
-                    console.log("Requisição bem-sucedida.");
-                } else {
-                    console.error("Erro na requisição. Mensagem da API:", result.mensagem || result.detail || "Erro desconhecido");
-                }
-                return result; // A API retorna o array diretamente
-            } catch (error) {
-                console.error("Erro ao conectar ou processar a API:", error);
-                throw error;
-            }
-        }
-
-        async function carregarItensNaPagina() {
-            const itensTableBody = document.querySelector('#itens-table tbody');
-            const statusMessage = document.getElementById('status-message');
-            
-            itensTableBody.innerHTML = ''; 
-            statusMessage.className = 'loading';
-            statusMessage.textContent = 'Carregando itens...';
-            document.getElementById('itens-table').style.display = 'none'; 
-
-            try {
-                // A API retorna um array direto, então `dadosApi` JÁ É o array de itens.
-                const itens = await listarItens(1); 
-                
-                if (itens && Array.isArray(itens) && itens.length > 0) {
-                    statusMessage.style.display = 'none'; 
-                    document.getElementById('itens-table').style.display = 'table'; 
-                    
-                    itens.forEach(item => {
-                        const row = itensTableBody.insertRow(); 
-                        
-                        // Use os nomes das propriedades exatamente como vêm da API (maiúsculas)
-                        row.insertCell().textContent = item.ID || 'N/A';
-                        row.insertCell().textContent = item.NOME || 'N/A';
-                        row.insertCell().textContent = item.GRUPO || 'N/A';
-                        row.insertCell().textContent = item.SUBGRUPO || 'N/A';
-                        row.insertCell().textContent = item.VALOR !== null ? item.VALOR : 'N/A'; 
-                        // Notei que VALOR pode ser null, então adicionei uma checagem.
-                    });
-                } else {
-                    statusMessage.className = 'no-data'; 
-                    statusMessage.textContent = 'Nenhum item encontrado ou dados vazios na resposta da API.';
-                    statusMessage.style.display = 'block';
-                    document.getElementById('itens-table').style.display = 'none';
-                }
-            } catch (error) {
-                statusMessage.className = 'error';
-                statusMessage.textContent = 'Erro ao carregar os itens. Verifique o console para mais detalhes.';
-                statusMessage.style.display = 'block';
-                document.getElementById('itens-table').style.display = 'none';
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', carregarItensNaPagina);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
