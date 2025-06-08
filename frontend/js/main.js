@@ -3,10 +3,13 @@
 import * as elements from './modules/domElements.js';
 import * as state from './modules/state.js';
 import * as ui from './modules/ui.js';
+
 import { initializeAuthEventListeners } from './modules/auth.js';
 import { initializeIntegrationEventListeners } from './modules/integration.js';
-// Importação do novo módulo de itens
 import { initializeItemManagement } from './modules/itemManagement.js';
+// NOVO: NÃO precisamos importar initializeModal aqui se for chamado pelo ui.js
+// import { initializeModal } from './modules/modal.js'; 
+
 
 /**
  * Configura o dashboard para um usuário logado.
@@ -33,7 +36,7 @@ function initializeEventListeners() {
             const screenKey = event.currentTarget.dataset.screenKey;
             const contentId = elements.screenKeyToContentId[screenKey];
             if (contentId) {
-                ui.showContentScreen(contentId);
+                ui.showContentScreen(contentId); // Esta função agora chama initializeModal, se necessário
                 ui.updateSidebarSelection(screenKey);
             }
         });
@@ -66,6 +69,9 @@ function initializeEventListeners() {
     elements.menuToggleButton.addEventListener('click', ui.toggleMobileDrawer);
     elements.drawerOverlay.addEventListener('click', ui.toggleMobileDrawer);
     window.addEventListener('resize', ui.handleResize);
+
+    // REMOVIDO: initializeModal() não é mais chamado aqui globalmente.
+    // Ele será chamado quando a tela de conteúdo for exibida.
 }
 
 /**
@@ -73,10 +79,8 @@ function initializeEventListeners() {
  */
 function main() {
     ui.handleResize();
-    // A chamada para a função única acontece aqui
     initializeEventListeners();
 
-    // Verifica se já existe uma sessão de usuário
     if (state.getUserName()) {
         initializeDashboard();
     } else {
