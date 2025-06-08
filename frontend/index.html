@@ -49,8 +49,8 @@
                 <div class="header-right">
                     <span id="logged-in-user"></span>
                     <div class="user-actions">
-                        <button id="user-options-button" class="icon-button"><i class="ph ph-gear"></i></button>
-                        <button id="logout-button" class="icon-button"><i class="ph ph-sign-out"></i></button>
+                        <button id="user-options-button" class="icon-button"><i class="ph ph-gear icon-md"></i></button>
+                        <button id="logout-button" class="icon-button"><i class="ph ph-sign-out icon-md"></i></button>
                     </div>
                 </div>
             </header>
@@ -189,191 +189,21 @@
                 <!-- Conteúdo Principal do Dashboard -->
                 <main id="main-content" class="main-content">
                     <!-- As telas serão carregadas aqui dinamicamente pelo JavaScript -->
-                    <div id="welcome-dashboard-content" class="content-screen active">
-                        <!-- Conteúdo da tela de boas-vindas será carregado aqui -->
-                    </div>
-                    <div id="vendas_geral" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-shopping-cart"></i>
-                            <h2>Vendas - Geral</h2>
-                            <p>Conteúdo de Vendas - Geral</p>
-                        </div>
-                    </div>
-                    <div id="vendas_venda" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-shopping-cart"></i>
-                            <h2>Vendas - Venda</h2>
-                            <p>Conteúdo de Vendas - Venda</p>
-                        </div>
-                    </div>
-                    <div id="vendas_orcamento" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-shopping-cart"></i>
-                            <h2>Vendas - Orçamento</h2>
-                            <p>Conteúdo de Vendas - Orçamento</p>
-                        </div>
-                    </div>
-                    <div id="vendas_entrega" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-shopping-cart"></i>
-                            <h2>Vendas - Entrega</h2>
-                            <p>Conteúdo de Vendas - Entrega</p>
-                        </div>
-                    </div>
-                    <div id="estoque_geral" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-storefront"></i>
-                            <h2>Estoque - Geral</h2>
-                            <p>Conteúdo de Estoque - Geral</p>
-                        </div>
-                    </div>
-                    <div id="estoque_entrada_nf" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-storefront"></i>
-                            <h2>Estoque - Entrada NF</h2>
-                            <p>Conteúdo de Estoque - Entrada NF</p>
-                        </div>
-                    </div>
-                    <div id="estoque_cadastro_itens" class="content-screen hidden">
-                        <div class="page-container">
-                            <h2>Estoque - Cadastro de Itens</h2>
-                            <p class="section-description">Preencha o formulário para adicionar um novo item ou visualize os itens já cadastrados na tabela abaixo.</p>
-                    
-                            <div class="card form-card">
-                                <h3>Cadastrar Novo Item</h3>
-                                <form id="item-registration-form">
-                                    <div class="form-grid">
-                                        <div class="input-group">
-                                            <label for="descricaoItem">Descrição do Item</label>
-                                            <input type="text" id="descricaoItem" placeholder="Ex: Teclado Mecânico RGB" required>
-                                        </div>
-                                        <div class="input-group">
-                                            <label for="grupoInfoDescricao">Grupo</label>
-                                            <input type="text" id="grupoInfoDescricao" placeholder="Ex: Periféricos" required>
-                                        </div>
-                                        <div class="input-group">
-                                            <label for="subgrupoInfoDescricao">Subgrupo</label>
-                                            <input type="text" id="subgrupoInfoDescricao" placeholder="Ex: Teclados" required>
-                                        </div>
-                                        <div class="input-group">
-                                            <label for="valorItem">Valor (R$)</label>
-                                            <input type="number" id="valorItem" step="0.01" placeholder="Ex: 299.90" required>
-                                        </div>
-                                        <div class="input-group">
-                                            <label for="itemStatus">Status</label>
-                                            <select id="itemStatus" required>
-                                                <option value="1">Ativo</option>
-                                                <option value="0">Inativo</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="button-group">
-                                        <button type="submit" id="submit-item-button" class="primary-button">
-                                            <i class="ph ph-plus-circle"></i> Cadastrar Item
-                                        </button>
-                                    </div>
-                                </form>
-                                <div id="item-message-box" class="message-box hidden"></div>
-                            </div>
-                    
-                            <div class="card list-card">
-                                <h3>Itens Cadastrados</h3>
-                                <div class="table-container">
-                                    <table id="items-table">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Descrição</th>
-                                                <th>Grupo</th>
-                                                <th>Subgrupo</th>
-                                                <th>Valor</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="items-table-body">
-                                            <tr>
-                                                <td colspan="6" class="text-center">Carregando itens...</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div id="clientes_geral" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-users"></i>
-                            <h2>Clientes - Geral</h2>
-                            <p>Conteúdo de Clientes - Geral</p>
-                        </div>
-                    </div>
-                    <div id="clientes_cadastro_rapido" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-users"></i>
-                            <h2>Clientes - Cadastro Rápido</h2>
-                            <p>Conteúdo de Clientes - Cadastro Rápido</p>
-                        </div>
-                    </div>
-                    <div id="relatorios_geral" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-chart-bar"></i>
-                            <h2>Relatórios - Geral</h2>
-                            <p>Conteúdo de Relatórios - Geral</p>
-                        </div>
-                    </div>
-                    <div id="configuracoes_geral" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-gear-six"></i>
-                            <h2>Configurações - Geral</h2>
-                            <p>Conteúdo de Configurações - Geral</p>
-                        </div>
-                    </div>
-                    <div id="configuracoes_usuarios" class="content-screen hidden">
-                        <div class="content-placeholder">
-                            <i class="ph ph-gear-six"></i>
-                            <h2>Configurações - Usuários</h2>
-                            <p>Conteúdo de Configurações - Usuários</p>
-                        </div>
-                    </div>
+                    <div id="welcome-dashboard-content" class="content-screen active"></div>
+                    <div id="vendas_geral" class="content-screen hidden"></div>
+                    <div id="vendas_venda" class="content-screen hidden"></div>
+                    <div id="vendas_orcamento" class="content-screen hidden"></div>
+                    <div id="vendas_entrega" class="content-screen hidden"></div>
+                    <div id="estoque_geral" class="content-screen hidden"></div>
+                    <div id="estoque_entrada_nf" class="content-screen hidden"></div>
+                    <div id="estoque_cadastro_itens" class="content-screen hidden"></div>
+                    <div id="clientes_geral" class="content-screen hidden"></div>
+                    <div id="clientes_cadastro_rapido" class="content-screen hidden"></div>
+                    <div id="relatorios_geral" class="content-screen hidden"></div>
+                    <div id="configuracoes_geral" class="content-screen hidden"></div>
+                    <div id="configuracoes_usuarios" class="content-screen hidden"></div>
                     <!-- Tela de Configurações de Integração (será carregada dinamicamente) -->
-                    <div id="configuracoes_integracao" class="content-screen hidden">
-                        <div class="integration-settings-container">
-                            <h2>Configurações de Integração</h2>
-                            <p class="section-description">Defina as informações de conexão da API:</p>
-                            <form id="integration-settings-form">
-                                <div class="input-group">
-                                    <i class="ph ph-hash"></i>
-                                    <label for="system-id">ID do Sistema</label>
-                                    <input type="number" id="system-id" placeholder="Ex: 1" value="1" required>
-                                </div>
-                                <div class="input-group">
-                                    <i class="ph ph-link"></i>
-                                    <label for="api-endpoint">Endpoint da API</label>
-                                    <input type="text" id="api-endpoint" placeholder="Ex: http://192.168.15.187"
-                                        value="http://192.168.15.187" required>
-                                </div>
-                                <div class="input-group">
-                                    <i class="ph ph-plug"></i>
-                                    <label for="port">Porta</label>
-                                    <input type="number" id="port" placeholder="Ex: 8000" value="8000" required>
-                                </div>
-                                <div class="input-group">
-                                    <i class="ph ph-buildings"></i>
-                                    <label for="company-name">Nome da Empresa</label>
-                                    <input type="text" id="company-name" placeholder="Ex: AltCorp" value="AltCorp"
-                                        required>
-                                </div>
-                                <div class="button-group">
-                                    <button type="submit" id="save-settings-button" class="primary-button">Salvar
-                                        Configurações (Desativado)</button>
-                                    <button type="button" id="reset-settings-button" class="secondary-button">Voltar ao
-                                        Padrão (Desativado)</button>
-                                </div>
-                            </form>
-                            <div id="integration-message-box" class="message-box hidden"></div>
-                        </div>
-                    </div>
+                    <div id="configuracoes_integracao" class="content-screen hidden"></div>
                 </main>
             </div>
         </div>
@@ -382,7 +212,7 @@
     <!-- Link para o arquivo JavaScript de lógica -->
     <script type="module" src="js/main.js"></script>
 
-    <!-- TODO: Remover este comentário ao migrar toda a lógica para app.js --
+    <!-- TODO: Remover este comentário ao migrar toda a lógica para app.js -->
 </body>
 
 </html>

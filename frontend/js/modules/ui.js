@@ -33,6 +33,18 @@ export function showScreen(screenToShow, screenToHide) {
  * Exibe uma seção de conteúdo específica no dashboard.
  * @param {string} contentId - O ID do conteúdo a ser exibido.
  */
+async function loadPageContent(containerId, pagePath) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    try {
+        const response = await fetch(pagePath);
+        const html = await response.text();
+        container.innerHTML = html;
+    } catch (error) {
+        container.innerHTML = `<p>Erro ao carregar o conteúdo da página.</p>`;
+    }
+}
+
 export function showContentScreen(contentId) {
     document.querySelectorAll('.content-screen').forEach(screen => {
         screen.classList.add('hidden');
@@ -41,9 +53,16 @@ export function showContentScreen(contentId) {
     if (targetScreen) {
         targetScreen.classList.remove('hidden');
         if (contentId === 'configuracoes_integracao') {
-            loadIntegrationSettings();
+            // Carrega o HTML externo e só depois chama loadIntegrationSettings
+            const pagePath = getPagePathFromContentId(contentId);
+            loadPageContent(contentId, pagePath).then(() => {
+                loadIntegrationSettings();
+            });
         } else if (contentId === 'welcome-dashboard-content') {
             loadWelcomeDashboardContent();
+        } else {
+            const pagePath = getPagePathFromContentId(contentId);
+            loadPageContent(contentId, pagePath);
         }
     } else {
         console.error(`Conteúdo da tela não encontrado para o ID: ${contentId}`);
@@ -121,4 +140,13 @@ async function loadWelcomeDashboardContent() {
         </div>
         // ... (resto do HTML do dashboard)
     `;
+}
+
+/**
+ * Retorna o caminho da página com base no ID do conteúdo.
+ * @param {string} contentId - O ID do conteúdo.
+ * @returns {string} - O caminho da página.
+ */
+function getPagePathFromContentId(contentId) {
+    return `src/pages/${contentId}.html`;
 }

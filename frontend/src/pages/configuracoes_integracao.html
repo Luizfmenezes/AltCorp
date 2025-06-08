@@ -1,0 +1,49 @@
+<div class="content-placeholder">
+    <h2>Configurações de Integração</h2>
+    <p class="section-description">Defina as informações de conexão da API:</p>
+    <form id="integration-settings-form">
+        <div class="input-group">
+            <i class="ph ph-hash icon-sm"></i>
+            <label for="system-id">ID do Sistema</label>
+            <input type="number" id="system-id" placeholder="Ex: 1" value="1" required>
+        </div>
+        <div class="input-group icon-sm">
+            <i class="ph ph-link"></i>
+            <label for="api-endpoint">Endpoint da API</label>
+            <input type="text" id="api-endpoint" placeholder="Ex: http://192.168.15.187" value="http://192.168.15.187"
+                required>
+        </div>
+        <div class="input-group">
+            <i class="ph ph-plug icon-sm"></i>
+            <label for="port">Porta</label>
+            <input type="number" id="port" placeholder="Ex: 8000" value="8000" required>
+        </div>
+        <div class="input-group">
+            <i class="ph ph-buildings icon-sm"></i>
+            <label for="company-name">Nome da Empresa</label>
+            <input type="text" id="company-name" placeholder="Ex: AltCorp" value="AltCorp" required>
+        </div>
+        <div class="button-group">
+            <button type="submit" id="save-settings-button" class="primary-button">Salvar
+                Configurações (Desativado)</button>
+            <button type="button" id="reset-settings-button" class="secondary-button">Voltar ao
+                Padrão (Desativado)</button>
+        </div>
+    </form>
+    <div>
+        <a href="#" class="icon-label">
+            <i class="ph ph-envelope"></i>
+            Contato
+        </a>
+
+        <div class="icon-label">
+            <i class="ph ph-map-pin"></i>
+            <span>Localização</span>
+        </div>
+
+        <button class="icon-button">
+            <i class="ph ph-gear"></i>
+        </button>
+    </div>
+    <div id="integration-message-box" class="message-box hidden"></div>
+</div>

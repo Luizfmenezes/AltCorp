@@ -1,0 +1,65 @@
+<div class="content-placeholder">
+    <h2>Estoque - Cadastro de Itens</h2>
+    <p class="section-description">Preencha o formulário para adicionar um novo item ou visualize os itens já
+        cadastrados na tabela abaixo.</p>
+
+    <div class="card form-card">
+        <h3>Cadastrar Novo Item</h3>
+        <form id="item-registration-form">
+            <div class="form-grid">
+                <div class="input-group">
+                    <label for="descricaoItem">Descrição do Item</label>
+                    <input type="text" id="descricaoItem" placeholder="Ex: Teclado Mecânico RGB" required>
+                </div>
+                <div class="input-group">
+                    <label for="grupoInfoDescricao">Grupo</label>
+                    <input type="text" id="grupoInfoDescricao" placeholder="Ex: Periféricos" required>
+                </div>
+                <div class="input-group">
+                    <label for="subgrupoInfoDescricao">Subgrupo</label>
+                    <input type="text" id="subgrupoInfoDescricao" placeholder="Ex: Teclados" required>
+                </div>
+                <div class="input-group">
+                    <label for="valorItem">Valor (R$)</label>
+                    <input type="number" id="valorItem" step="0.01" placeholder="Ex: 299.90" required>
+                </div>
+                <div class="input-group">
+                    <label for="itemStatus">Status</label>
+                    <select id="itemStatus" required>
+                        <option value="1">Ativo</option>
+                        <option value="0">Inativo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="button-group">
+                <button type="submit" id="submit-item-button" class="primary-button">
+                    <i class="ph ph-plus-circle"></i> Cadastrar Item
+                </button>
+            </div>
+        </form>
+        <div id="item-message-box" class="message-box hidden"></div>
+    </div>
+
+    <div class="card list-card">
+        <h3>Itens Cadastrados</h3>
+        <div class="table-container">
+            <table id="items-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Grupo</th>
+                        <th>Subgrupo</th>
+                        <th>Valor</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="items-table-body">
+                    <tr>
+                        <td colspan="6" class="text-center">Carregando itens...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
