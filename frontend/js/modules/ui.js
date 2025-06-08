@@ -49,7 +49,9 @@ function getPagePath(contentId) {
     // Caminhos são relativos ao seu servidor web, não ao ui.js
     switch (contentId) {
         case 'welcome-dashboard-content':
-            return 'src/pages/welcome_dashboard_content.html';
+            return 'src/pages/welcome_dashboard.html';
+        case 'welcome-dashboard-content':
+            return 'src/pages/modal_cadastro_produto.html';    
         case 'vendas_geral':
             return 'src/pages/vendas_geral.html';
         case 'vendas_venda':
@@ -78,6 +80,7 @@ function getPagePath(contentId) {
             return 'src/pages/configuracoes_integracao.html';
         default:
             return '';
+            
     }
 }
 
