@@ -116,11 +116,42 @@
             background-color: #218838;
         }
 
+        /* Pagination Styles */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .pagination-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: background-color 0.3s ease;
+        }
+        .pagination-button:hover {
+            background-color: #0056b3;
+        }
+        .pagination-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .page-info {
+            font-size: 1em;
+            font-weight: bold;
+            color: #333;
+        }
+
         /* Modal Styles */
         .modal {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
+            /* CORREÇÃO APLICADA AQUI */
+            z-index: 1000; /* Sit on top of ALL content */
             left: 0;
             top: 0;
             width: 100%; /* Full width */
@@ -216,11 +247,18 @@
                     <th>Grupo</th>
                     <th>Subgrupo</th>
                     <th>Valor</th>
-                    <th>Ações</th> </tr>
+                    <th>Ações</th>
+                </tr>
             </thead>
             <tbody>
-            </tbody>
+                </tbody>
         </table>
+
+        <div id="pagination-container" class="pagination-container" style="display: none;">
+            <button id="prev-page-button" class="pagination-button">Anterior</button>
+            <span id="page-info" class="page-info">Página 1</span>
+            <button id="next-page-button" class="pagination-button">Próximo</button>
+        </div>
     </div>
 
     <div id="editItemModal" class="modal">
