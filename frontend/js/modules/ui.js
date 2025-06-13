@@ -102,7 +102,7 @@ export async function showContentScreen(contentId) {
                     try {
                         const ItensManager = await import('./lista-estoque-itens.js');
                         const { setIdParaEditar } = await import('./editState.js');
-
+                        
                         // Adiciona um listener que guarda o ID e troca de tela
                         const tableBody = document.querySelector('#itens-table tbody');
                         if (tableBody) {
@@ -134,7 +134,7 @@ export async function showContentScreen(contentId) {
                         console.error('Falha ao inicializar os eventos da tela de itens:', error);
                     }
                     break;
-
+                
                 case 'estoque_editar_item':
                     try {
                         const EditManager = await import('./estoque_editar_item.js');
